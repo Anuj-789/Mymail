@@ -1,4 +1,4 @@
-# 🚀 <span style="color:#f97316">My</span><span style="color:#fb923c">Mail</span> — Modern Email Infrastructure SaaS
+# <span style="color:#f97316">My</span><span style="color:#fb923c">Mail</span> — Modern Email Infrastructure SaaS
 
 <p align="center">
   <img src="./frontend/public/gungif3.gif" alt="MyMail Logo" width="180"/>
