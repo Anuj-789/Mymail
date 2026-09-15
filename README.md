@@ -4,9 +4,11 @@
   <img src="./frontend/public/gungif3.gif" alt="MyMail Logo" width="180"/>
 </p>
 
-<h1 align="center">
-  <span style="color:#fafaf9">My</span><span style="color:#f97316">Mail</span>
-</h1>
+<br/>
+
+<img src="./frontend/public/mymail-logo.png" alt="MyMail Logo" width="220"/>
+
+<br/><br/>
 
 <p align="center">
   <strong>Modern Email Infrastructure for Developers, Startups & Businesses</strong>
