@@ -33,10 +33,8 @@
 **Live Website:**
 https://mymail-alpha.vercel.app/
 
-### ⚡ Backend API
 
-**Production API:**
-https://mymail-backend.vercel.app/
+
 
 > MyMail uses a React/Vite frontend connected to a Node.js/Express backend with MongoDB and SMTP-based email delivery.
 
