@@ -1,1219 +1,714 @@
-# 🚀 MyMail — Email Infrastructure SaaS Platform
+# 🚀 MyMail — Modern Email Infrastructure SaaS
 
 <p align="center">
-
-<img src="./frontend/public/gungif3.gif" alt="MyMail Logo" width="180"/>
-
+  <img src="./frontend/public/gungif3.gif" alt="MyMail Logo" width="180"/>
 </p>
 
-<h3 align="center">Powerful • Secure • Developer-Friendly Email Infrastructure</h3>
+<h1 align="center">MyMail</h1>
 
 <p align="center">
-  A production-oriented Email SaaS platform for managing projects, API keys, templates and transactional email delivery.
+  <strong>Modern Email Infrastructure for Developers, Startups & Businesses</strong>
+</p>
+
+<p align="center">
+  Build projects • Generate API Keys • Create Templates • Send Emails • Track Logs • Analyze Usage
 </p>
 
 <p align="center">
 
-![Node.js](https://img.shields.io/badge/Node.js-24.x-339933?style=for-the-badge\&logo=node.js\&logoColor=white)
-![Express](https://img.shields.io/badge/Express.js-5.x-000000?style=for-the-badge\&logo=express)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge\&logo=react\&logoColor=black)
+![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933?style=for-the-badge\&logo=node.js\&logoColor=white)
+![Express](https://img.shields.io/badge/Express-5-black?style=for-the-badge\&logo=express)
 ![MongoDB](https://img.shields.io/badge/MongoDB-Database-47A248?style=for-the-badge\&logo=mongodb\&logoColor=white)
-![React](https://img.shields.io/badge/React-Frontend-61DAFB?style=for-the-badge\&logo=react\&logoColor=black)
-![Vite](https://img.shields.io/badge/Vite-Build%20Tool-646CFF?style=for-the-badge\&logo=vite\&logoColor=white)
-![JWT](https://img.shields.io/badge/JWT-Authentication-000000?style=for-the-badge\&logo=jsonwebtokens)
-![Nodemailer](https://img.shields.io/badge/Nodemailer-Email%20Engine-EA4335?style=for-the-badge)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge\&logo=tailwindcss\&logoColor=white)
+
+</p>
+
+<p align="center">
+
+![Redux Toolkit](https://img.shields.io/badge/Redux_Toolkit-2.12-764ABC?style=for-the-badge\&logo=redux\&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-0055FF?style=for-the-badge\&logo=framer\&logoColor=white)
+![Axios](https://img.shields.io/badge/Axios-1.x-5A29E4?style=for-the-badge\&logo=axios\&logoColor=white)
+![Nodemailer](https://img.shields.io/badge/Nodemailer-9.x-22B573?style=for-the-badge)
 
 </p>
 
 ---
 
-## 🌐 Live Application
+## 🌐 Live Project
 
-### ⭐ MyMail User Application
+### 🖥️ User Application
 
-**Live Website:**
+**MyMail — Live SaaS Application**
+
 https://mymail-alpha.vercel.app/
 
+### ⚙️ Backend API
 
+**MyMail — Production Backend**
 
+https://mymail-backend.vercel.app/
 
-> MyMail uses a React/Vite frontend connected to a Node.js/Express backend with MongoDB and SMTP-based email delivery.
+---
+
+# 🧊 3D SaaS Overview
+
+```text
+                         ┌─────────────────────────┐
+                         │       🌐 MyMail         │
+                         │   Email Infrastructure  │
+                         └────────────┬────────────┘
+                                      │
+                    ┌─────────────────┼─────────────────┐
+                    │                 │                 │
+                    ▼                 ▼                 ▼
+             ┌────────────┐    ┌────────────┐    ┌────────────┐
+             │ 👤 Users   │    │ 📁 Projects│    │ 🛡️ Admin   │
+             └─────┬──────┘    └─────┬──────┘    └─────┬──────┘
+                   │                 │                 │
+                   ▼                 ▼                 ▼
+             ┌────────────┐    ┌────────────┐    ┌────────────┐
+             │ 🔐 Auth    │    │ 🔑 API Keys│    │ 📊 Analytics│
+             └─────┬──────┘    └─────┬──────┘    └────────────┘
+                   │                 │
+                   └────────┬────────┘
+                            ▼
+                    ┌───────────────┐
+                    │ 📧 Templates  │
+                    └───────┬───────┘
+                            ▼
+                    ┌───────────────┐
+                    │ ⚡ Email Engine│
+                    └───────┬───────┘
+                            ▼
+                    ┌───────────────┐
+                    │ 📬 SMTP Server │
+                    └───────┬───────┘
+                            ▼
+                    ┌───────────────┐
+                    │ 📈 Email Logs │
+                    └───────────────┘
+```
+
+> MyMail follows a multi-tenant architecture where users manage projects, API keys, templates and email delivery independently.
 
 ---
 
 # ✨ What is MyMail?
 
-**MyMail** is a modern **Email Infrastructure SaaS Platform** designed to provide developers and businesses with a simple way to manage transactional email delivery.
+**MyMail** is a full-stack Email Infrastructure SaaS platform designed to provide developers and businesses with a simple and scalable way to send transactional emails through APIs.
 
-Instead of implementing email infrastructure from scratch, users can:
+The platform follows a concept similar to modern email infrastructure providers such as SendGrid or Mailgun, while implementing its own authentication, project management, API-key security, template management, email engine, logging and administration system.
 
-```text
-Create Account
-      ↓
-Create Project
-      ↓
-Generate API Key
-      ↓
-Create / Select Email Template
-      ↓
-Send Emails Through API
-      ↓
-Track Email Logs
-      ↓
-Monitor Usage & Analytics
-```
-
-The platform follows a multi-tenant architecture:
+### Core Flow
 
 ```text
-USER
- │
- ├── Projects
- │     │
- │     ├── API Keys
- │     │
- │     └── Templates
- │
- └── Email Engine
-        │
-        └── Email Logs
+👤 User
+   ↓
+📁 Create Project
+   ↓
+🔑 Generate API Key
+   ↓
+📝 Create / Select Template
+   ↓
+📨 Send Email through API
+   ↓
+⚡ Email Engine
+   ↓
+📡 SMTP
+   ↓
+📊 Email Log
+   ↓
+📈 Dashboard & Analytics
 ```
 
 ---
 
-# 🎯 Core Features
+# 🎯 Project Vision
+
+MyMail aims to provide a developer-friendly email infrastructure layer where applications can send reliable transactional emails without implementing their own complete email delivery system.
+
+### Designed For
+
+* 👨‍💻 Developers
+* 🚀 Startups
+* 🏢 Businesses
+* 🛒 SaaS Applications
+* 🔐 Authentication Systems
+* 📦 E-commerce Applications
+* 📊 Business Platforms
+* 🌐 Web Applications
+
+---
+
+# ⭐ Core Features
 
 ## 🔐 Authentication
 
 * User registration
-* Email verification
-* Secure login
+* Login
+* Logout
 * JWT access tokens
-* HTTP-only refresh-token cookies
-* Refresh-token rotation
+* Refresh-token authentication
+* HTTP-only refresh-token cookie
+* Email verification
 * Forgot password
 * Password reset
-* Secure password hashing using bcrypt
-* Logout
-* Session invalidation after password change/reset
+* Password change
+* Account verification
+* Account blocking
+* Role-based authorization
 
 ---
 
 ## 📁 Project Management
 
-Users can create and manage independent email projects.
+Users can create and manage independent projects.
 
-### Project Features
+Each project can contain:
 
-* Create project
-* View projects
-* View project details
-* Update project
-* Deactivate project
-* Project ownership validation
+* Project name
+* Description
 * Website URL
 * Allowed domains
-* Project status management
+* Active / inactive status
+* API keys
+* Templates
+* Email activity
+
+### Project Structure
+
+```text
+User
+ │
+ ├── Project A
+ │    ├── API Keys
+ │    ├── Templates
+ │    └── Emails
+ │
+ ├── Project B
+ │    ├── API Keys
+ │    ├── Templates
+ │    └── Emails
+ │
+ └── Project C
+      ├── API Keys
+      ├── Templates
+      └── Emails
+```
 
 ---
 
-## 🔑 API Key Management
+# 🔑 Secure API Key Management
 
-MyMail provides secure API key based email authentication.
-
-Supported key types:
+MyMail provides environment-based API keys:
 
 ```text
-Development
-Production
+pk_test_...
+pk_live_...
 ```
 
-Example:
+### Security Features
 
-```text
-pk_test_********
-pk_live_********
+* SHA-256 API-key hashing
+* Raw key shown only during generation/regeneration
+* Key prefix tracking
+* Active / inactive status
+* Usage counter
+* Last-used timestamp
+* Project ownership validation
+* API-key middleware
+
+Emails can be sent using:
+
+```http
+x-api-key: YOUR_API_KEY
 ```
-
-### Security
-
-Raw API keys are **never stored directly**.
-
-The platform stores a secure hash:
-
-```text
-Raw API Key
-     ↓
-SHA-256 Hash
-     ↓
-Database
-```
-
-The raw key is returned only during generation/regeneration.
 
 ---
 
 # 📧 Email Engine
 
-The email engine allows external applications to send emails using an API key.
+The email engine is the heart of MyMail.
 
-### Example Request
-
-```http
-POST /api/email/send
-x-api-key: YOUR_API_KEY
-Content-Type: application/json
+```text
+API Request
+     │
+     ▼
+API Key Validation
+     │
+     ▼
+Project Validation
+     │
+     ▼
+Template Validation
+     │
+     ▼
+Variable Replacement
+     │
+     ▼
+Email Rendering
+     │
+     ▼
+SMTP Transport
+     │
+     ▼
+Email Delivery
+     │
+     ▼
+Email Log
 ```
+
+### Supported Flow
 
 ```json
 {
+  "templateId": "template_id",
   "to": "customer@example.com",
   "data": {
-    "userName": "Rahul",
-    "orderId": "ORD123",
-    "amount": "999"
+    "userName": "Anuj"
   }
 }
 ```
 
-The backend validates the API key, identifies the associated project and processes the configured template.
-
 ---
 
-# 🧩 Dynamic Email Templates
+# 📝 Dynamic Email Templates
 
-Templates support dynamic variables such as:
-
-```text
-{{userName}}
-{{orderId}}
-{{amount}}
-{{companyName}}
-```
+MyMail supports reusable email templates with dynamic variables.
 
 Example:
 
-```html
-<h1>Hello {{userName}}</h1>
+```text
+Hello {{userName}},
 
-<p>Your order {{orderId}} has been successfully processed.</p>
+Welcome to {{appName}}!
 
-<p>Total Amount: ₹{{amount}}</p>
+Thanks for joining us.
 ```
 
-Variables can be populated from project settings and request data.
+Variables can be replaced dynamically at runtime.
+
+### Template Categories
+
+* 🔐 Authentication
+* 💼 Business
+* 🧩 Custom
+
+### Template Types
+
+* System templates
+* Custom templates
 
 ---
 
-# 📝 Email Logs
+# 📊 Email Logs
 
-Every email delivery attempt can be recorded with information such as:
+Every email activity can be tracked through the email logging system.
+
+### Logged Information
 
 * Recipient
 * Sender
 * Subject
 * Project
 * Template
-* Delivery status
+* API key
 * Provider
+* Status
 * Message ID
 * Error message
-* Timestamp
+* Sent time
 * Metadata
 
-Supported statuses:
+### Status
 
 ```text
-pending
-sent
-failed
+🟡 Pending
+   ↓
+🟢 Sent
+
+or
+
+🟡 Pending
+   ↓
+🔴 Failed
 ```
 
 ---
 
-# 📊 Dashboard & Analytics
+# 📈 Dashboard & Analytics
 
-The user dashboard provides information such as:
+The user dashboard provides an overview of email activity and account usage.
 
-* Total projects
-* Emails sent
-* Success rate
-* Recent activity
-* Recent projects
-* Email usage
+### Dashboard Capabilities
 
-The platform also includes analytics functionality for monitoring email activity.
+* Total emails
+* Sent emails
+* Failed emails
+* Project information
+* Template information
+* API-key usage
+* Email activity
+* Usage statistics
+
+The platform also includes an analytics system for administrative monitoring.
 
 ---
 
-# 👑 Admin Dashboard
+# 👨‍💼 Admin Dashboard
 
-MyMail includes a **separate Admin Frontend** for platform administration.
-
-### Admin Features
-
-```text
-Admin Login
-    ↓
-Admin Dashboard
-    ├── Users
-    ├── User Details
-    ├── Projects
-    ├── Project Details
-    ├── Emails
-    ├── Email Details
-    ├── Templates
-    ├── API Keys
-    ├── Analytics
-    ├── Activities
-    └── Admin Profile
-```
+MyMail includes a dedicated administration system.
 
 ### Admin Capabilities
 
-* View platform overview
-* Manage users
-* Block / unblock users
-* Manage projects
-* Activate / deactivate projects
-* Manage system templates
-* Monitor email activity
-* View API key usage
-* View analytics
-* Track admin activities
-* Manage admin profile
+```text
+                 👨‍💼 ADMIN
+                    │
+       ┌────────────┼────────────┐
+       ▼            ▼            ▼
+    👥 Users     📁 Projects   📧 Emails
+       │            │            │
+       └────────────┼────────────┘
+                    ▼
+               📊 Analytics
+                    │
+          ┌─────────┴─────────┐
+          ▼                   ▼
+      🔑 API Keys         📝 Templates
+          │                   │
+          └─────────┬─────────┘
+                    ▼
+              📋 Activities
+```
+
+### Admin Modules
+
+* Admin Dashboard
+* User Management
+* User Details
+* Project Management
+* Project Details
+* Email Management
+* Email Details
+* Template Management
+* API Key Overview
+* Analytics
+* Activity Logs
+* Admin Profile
+* Admin Password Management
 
 ---
 
-# 🏗️ System Architecture
+# 🛡️ Security Architecture
 
-```text
-                    ┌─────────────────────────┐
-                    │      USER FRONTEND      │
-                    │      React + Vite       │
-                    │        Vercel           │
-                    └────────────┬────────────┘
-                                 │
-                                 │ HTTPS / REST API
-                                 ▼
-                    ┌─────────────────────────┐
-                    │       BACKEND API       │
-                    │    Node.js + Express     │
-                    │         Vercel           │
-                    └────────────┬────────────┘
-                                 │
-              ┌──────────────────┼──────────────────┐
-              │                  │                  │
-              ▼                  ▼                  ▼
-       ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-       │   MongoDB   │    │    SMTP     │    │    JWT      │
-       │  Database   │    │ Nodemailer  │    │    Auth     │
-       └─────────────┘    └─────────────┘    └─────────────┘
-                                 ▲
-                                 │
-                    ┌────────────┴────────────┐
-                    │     ADMIN FRONTEND      │
-                    │      React + Vite       │
-                    │    Separate Application │
-                    └─────────────────────────┘
-```
+Security is a core part of MyMail.
 
----
+### Implemented Security
 
-# 🔄 Email Sending Flow
-
-```text
-External Application
-        │
-        │ x-api-key
-        ▼
-┌──────────────────┐
-│ API Key Middleware│
-└────────┬─────────┘
-         │
-         ▼
- Validate Key
-         │
-         ▼
- Identify Project
-         │
-         ▼
- Resolve Template
-         │
-         ▼
- Replace Variables
-         │
-         ▼
- SMTP / Nodemailer
-         │
-      ┌──┴──┐
-      ▼     ▼
-    SENT   FAILED
-      │     │
-      └──┬──┘
-         ▼
-     Email Log
-```
-
----
-
-# 🔐 Security Architecture
-
-Security is one of the core principles of MyMail.
-
-### Authentication
-
-```text
-JWT Access Token
-        +
-HTTP-only Refresh Token
-```
-
-### Password Security
-
-```text
-Plain Password
-      ↓
-bcrypt
-      ↓
-Hashed Password
-      ↓
-MongoDB
-```
-
-### API Key Security
-
-```text
-Raw API Key
-      ↓
-SHA-256
-      ↓
-Hashed Key
-      ↓
-MongoDB
-```
-
-### Additional Security
-
-* Helmet
-* CORS
-* Express Rate Limiting
-* JWT verification
+* JWT authentication
+* Refresh-token authentication
+* HTTP-only cookies
+* Password hashing with bcrypt
+* API-key hashing with SHA-256
+* Helmet security headers
+* CORS configuration
+* Rate limiting
 * Role-based authorization
 * Project ownership validation
-* API key status validation
-* Refresh token invalidation
-* Soft deletion/status management
-* Environment variable based secrets
+* API-key validation
+* Account blocking
+* Secure password reset flow
 
 ---
 
-# 🛡️ Rate Limiting
+# 🚦 Rate Limiting
 
-Authentication endpoints are protected using rate limiting.
+Sensitive authentication endpoints are protected with rate limiting.
 
-Current configuration:
+Configured limits:
 
 ```text
-Window: 15 minutes
-Maximum Attempts: 5
+Window:
+15 Minutes
+
+Maximum Attempts:
+5
 ```
 
-Applied to important endpoints such as:
+Applied to sensitive operations such as:
+
+* Login
+* Registration
+* Forgot Password
+
+---
+
+# 🧩 Technology Stack
+
+## 🎨 Frontend
+
+| Technology           | Purpose                     |
+| -------------------- | --------------------------- |
+| React 19             | UI development              |
+| React DOM            | React rendering             |
+| React Router DOM     | Routing                     |
+| Redux Toolkit        | State management            |
+| React Redux          | Redux integration           |
+| Axios                | API communication           |
+| Tailwind CSS 4       | UI styling                  |
+| Tailwind Vite Plugin | Tailwind + Vite integration |
+| Framer Motion        | Animations                  |
+| Lucide React         | Icons                       |
+| React Hook Form      | Form handling               |
+| Zod                  | Schema validation           |
+| @hookform/resolvers  | Form + schema integration   |
+| React Helmet Async   | SEO / document metadata     |
+| React Hot Toast      | Notifications               |
+| Recharts             | Charts & analytics          |
+| Vite                 | Frontend build tool         |
+| Oxlint               | Linting                     |
+
+---
+
+## ⚙️ Backend
+
+| Technology         | Purpose                   |
+| ------------------ | ------------------------- |
+| Node.js            | Runtime                   |
+| Express 5          | Backend framework         |
+| MongoDB            | Database                  |
+| Mongoose           | MongoDB ODM               |
+| JWT                | Authentication            |
+| bcryptjs           | Password hashing          |
+| Nodemailer         | Email delivery            |
+| Helmet             | Security headers          |
+| CORS               | Cross-origin access       |
+| express-rate-limit | Rate limiting             |
+| Cookie Parser      | Cookie handling           |
+| Morgan             | HTTP request logging      |
+| dotenv             | Environment configuration |
+
+---
+
+# 🎨 Frontend UI Architecture
+
+MyMail frontend follows a modern SaaS dashboard approach.
 
 ```text
-Login
-Register
-Forgot Password
+                    🖥️ React Application
+                           │
+          ┌────────────────┼────────────────┐
+          │                │                │
+          ▼                ▼                ▼
+      🌐 Public          🔐 Auth          📊 Dashboard
+          │                │                │
+          ▼                ▼                ▼
+      Landing          Login/Register     Projects
+      Pricing          Verify Email       API Keys
+      Features         Reset Password     Templates
+      FAQ              Forgot Password    Email
+                                           Logs
+                                           Analytics
+                                           Settings
 ```
 
 ---
 
-# 🧰 Technology Stack
+# 🎞️ Modern Animation System
 
-## Backend
+The frontend uses **Framer Motion** for interactive animations.
 
-| Technology         | Purpose               |
-| ------------------ | --------------------- |
-| Node.js            | Runtime               |
-| Express.js         | REST API              |
-| MongoDB            | Database              |
-| Mongoose           | ODM                   |
-| JWT                | Authentication        |
-| bcryptjs           | Password hashing      |
-| Nodemailer         | Email delivery        |
-| Helmet             | Security              |
-| CORS               | Cross-origin requests |
-| express-rate-limit | Rate limiting         |
-| Morgan             | HTTP logging          |
+Animations can be used across:
 
-## Frontend
+* Landing page
+* Hero sections
+* Pricing cards
+* Dashboard cards
+* Modals
+* Page transitions
+* Buttons
+* Navigation
+* Cards
+* Charts
+* Interactive components
 
-| Technology     | Purpose           |
-| -------------- | ----------------- |
-| React          | UI                |
-| Vite           | Frontend tooling  |
-| React Router   | Routing           |
-| Redux Toolkit  | State management  |
-| Axios          | API communication |
-| CSS / Tailwind | UI styling        |
+The UI follows a modern dark SaaS aesthetic with animated gradients, glass-style cards and smooth interactions.
 
-## Deployment
+---
+
+# 🎨 Tailwind CSS Design System
+
+MyMail uses **Tailwind CSS v4** for modern responsive styling.
+
+The design system is based around:
 
 ```text
-Frontend → Vercel
-Backend  → Vercel
-Database → MongoDB
-Email    → SMTP / Nodemailer
+Primary     → Orange
+Accent      → Yellow
+Background  → Dark
+Cards       → Dark Stone
+Text        → Light
+Success     → Green
+Warning     → Yellow
+Danger      → Red
+Info        → Blue
+```
+
+### Visual Direction
+
+```text
+╭────────────────────────────────────────────╮
+│                                            │
+│        🟠 Modern Dark SaaS Interface       │
+│                                            │
+│   ✦ Glass Cards     ✦ Soft Shadows         │
+│   ✦ Gradients       ✦ 3D Visual Feel       │
+│   ✦ Smooth Motion   ✦ Responsive Layout    │
+│                                            │
+╰────────────────────────────────────────────╯
 ```
 
 ---
 
-# 📂 Project Structure
+# 🏗️ Project Architecture
 
 ```text
-mail/
+MyMail
 │
-├── backend/
+├── 🎨 frontend
 │   │
-│   ├── scripts/
-│   │   └── createAdmin.js
+│   ├── app
+│   ├── assets
+│   ├── components
+│   ├── layouts
+│   ├── routes
+│   ├── services
+│   ├── hooks
+│   ├── context
+│   ├── utils
+│   ├── features
+│   ├── modules
+│   ├── App.jsx
+│   └── main.jsx
+│
+├── ⚙️ backend
 │   │
-│   └── src/
-│       ├── config/
-│       ├── middlewares/
-│       ├── utils/
-│       ├── models/
-│       ├── controllers/
-│       ├── routes/
-│       └── services/
+│   ├── config
+│   ├── middlewares
+│   ├── models
+│   ├── controllers
+│   ├── routes
+│   ├── services
+│   ├── utils
+│   └── index.js
 │
-│
-├── frontend/
-│   │
-│   ├── public/
-│   │   └── gungif3.gif
-│   │
-│   └── src/
-│       ├── app/
-│       ├── assets/
-│       ├── components/
-│       ├── layouts/
-│       ├── routes/
-│       ├── services/
-│       ├── hooks/
-│       ├── context/
-│       ├── utils/
-│       ├── features/
-│       ├── modules/
-│       ├── App.jsx
-│       └── main.jsx
-│
-│
-├── adminfrontend/
-│   │
-│   ├── public/
-│   │
-│   └── src/
-│       ├── app/
-│       ├── assets/
-│       ├── components/
-│       ├── layouts/
-│       ├── services/
-│       ├── features/
-│       ├── routes/
-│       ├── modules/
-│       ├── hooks/
-│       ├── utils/
-│       ├── App.jsx
-│       └── main.jsx
-│
-│
-├── .gitignore
-└── README.md
+└── 👨‍💼 adminfrontend
+    │
+    ├── app
+    ├── assets
+    ├── components
+    ├── layouts
+    ├── services
+    ├── features
+    ├── routes
+    ├── modules
+    ├── hooks
+    ├── utils
+    ├── App.jsx
+    └── main.jsx
 ```
+
+---
+
+# 🧠 Multi-Tenant Architecture
+
+MyMail follows a hierarchical multi-tenant model:
+
+```text
+                         👤 USER
+                           │
+             ┌─────────────┴─────────────┐
+             │                           │
+             ▼                           ▼
+        📁 PROJECT A                📁 PROJECT B
+             │                           │
+       ┌─────┴─────┐               ┌─────┴─────┐
+       ▼           ▼               ▼           ▼
+    🔑 API       📝 Templates    🔑 API       📝 Templates
+     Keys                         Keys
+       │                           │
+       └───────────┐   ┌───────────┘
+                   ▼   ▼
+                  📧 EMAILS
+```
+
+This structure keeps projects and their email resources logically separated.
+
+---
+
+# 🗄️ Database Models
+
+MyMail uses MongoDB with Mongoose.
+
+### Core Models
+
+```text
+User
+│
+├── VerificationToken
+├── PasswordResetToken
+│
+├── Project
+│   └── ApiKey
+│
+├── Template
+│
+├── EmailLog
+│
+├── EmailConfig
+│
+└── AdminActivityLog
+```
+
+### Models
+
+* `User`
+* `VerificationToken`
+* `PasswordResetToken`
+* `Project`
+* `ApiKey`
+* `Template`
+* `EmailLog`
+* `EmailConfig`
+* `AdminActivityLog`
 
 ---
 
 # 🔌 API Overview
 
-Production backend:
-
-```text
-https://mymail-backend.vercel.app
-```
-
-API base:
-
-```text
-https://mymail-backend.vercel.app/api
-```
-
-### Authentication
-
-```text
-POST /auth/register
-GET  /auth/verify-email/:token
-POST /auth/login
-POST /auth/logout
-POST /auth/refresh-token
-POST /auth/forgot-password
-POST /auth/reset-password/:token
-```
-
-### Profile
-
-```text
-GET /profile
-PUT /profile
-PUT /profile/change-password
-```
-
-### Projects
-
-```text
-POST   /projects
-GET    /projects
-GET    /projects/:id
-PUT    /projects/:id
-DELETE /projects/:id
-```
-
-### API Keys
-
-```text
-POST /projects/:projectId/api-key
-GET  /projects/:projectId/api-key
-PUT  /projects/:projectId/api-key/regenerate
-PUT  /projects/:projectId/api-key/status
-```
-
-### Templates
-
-```text
-GET    /templates
-GET    /templates/system
-GET    /templates/:id
-POST   /templates
-PUT    /templates/:id
-DELETE /templates/:id
-```
-
-### Email
-
-```text
-POST /email/send
-```
-
-### Email Logs
-
-```text
-GET /email-logs
-GET /email-logs/:id
-```
-
-### Dashboard
-
-```text
-GET /dashboard
-```
-
----
-
-# 👑 Admin API
-
-Admin APIs are protected using:
-
-```text
-JWT Authentication
-        +
-Admin Role Verification
-```
-
-### Overview
-
-```text
-GET /admin-dashboard/admin/overview
-```
-
-### Users
-
-```text
-GET /admin-dashboard/admin/users
-GET /admin-dashboard/admin/users/:id
-PUT /admin-dashboard/admin/users/:id/status
-```
-
-### Projects
-
-```text
-GET /admin-dashboard/admin/projects
-GET /admin-dashboard/admin/projects/:id
-PUT /admin-dashboard/admin/projects/:id/status
-```
-
-### Emails
-
-```text
-GET /admin-dashboard/admin/emails
-GET /admin-dashboard/admin/emails/:id
-GET /admin-dashboard/admin/email-stats
-```
-
-### Templates
-
-```text
-GET    /admin-dashboard/admin/templates
-POST   /admin-dashboard/admin/templates
-PUT    /admin-dashboard/admin/templates/:id
-DELETE /admin-dashboard/admin/templates/:id
-```
-
-### API Keys
-
-```text
-GET /admin-dashboard/api-keys/overview
-GET /admin-dashboard/api-keys
-```
-
-### Analytics
-
-```text
-GET /admin-dashboard/analytics
-```
-
-### Activities
-
-```text
-GET /admin-dashboard/activity
-GET /admin-dashboard/activity/:id
-```
-
-### Admin Profile
-
-```text
-GET /admin-dashboard/admin/profile
-PUT /admin-dashboard/admin/profile
-PUT /admin-dashboard/admin/profile/change-password
-```
-
----
-
-# ⚙️ Local Development
-
-## 1. Clone Repository
-
-```bash
-git clone YOUR_REPOSITORY_URL
-cd mail
-```
-
----
-
-## 2. Backend Setup
-
-```bash
-cd backend
-npm install
-```
-
-Create:
-
-```text
-backend/.env
-```
-
-Example:
-
-```env
-PORT=5000
-NODE_ENV=development
-
-MONGO_URI=your_mongodb_connection_string
-
-JWT_ACCESS_SECRET=your_access_secret
-JWT_REFRESH_SECRET=your_refresh_secret
-
-JWT_ACCESS_EXPIRY=15m
-JWT_REFRESH_EXPIRY=7d
-
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_SECURE=false
-
-SMTP_USER=your_email@gmail.com
-SMTP_PASS=your_app_password
-
-EMAIL_FROM_NAME=MyMail
-EMAIL_FROM_EMAIL=your_email@gmail.com
-
-ADMIN_NAME=Super Admin
-ADMIN_EMAIL=admin@example.com
-ADMIN_PASSWORD=your_admin_password
-ADMIN_PHONE=9999999999
-
-RATE_LIMIT_WINDOW_MS=900000
-RATE_LIMIT_MAX=5
-```
-
-> **Never commit `.env` files to GitHub.**
-
----
-
-## 3. Create Admin
-
-From the backend directory:
-
-```bash
-node scripts/createAdmin.js
-```
-
----
-
-## 4. Start Backend
-
-Development:
-
-```bash
-npm run dev
-```
-
-Production-style:
-
-```bash
-npm start
-```
-
-Backend:
-
-```text
-http://localhost:5000
-```
-
-API:
-
-```text
-http://localhost:5000/api
-```
-
----
-
-# 💻 Frontend Setup
-
-```bash
-cd frontend
-npm install
-```
-
-Create:
-
-```text
-frontend/.env
-```
-
-```env
-VITE_API_URL=http://localhost:5000/api
-```
-
-Run:
-
-```bash
-npm run dev
-```
-
-Frontend:
-
-```text
-http://localhost:5173
-```
-
----
-
-# 👑 Admin Frontend Setup
-
-```bash
-cd adminfrontend
-npm install
-```
-
-Create:
-
-```text
-adminfrontend/.env
-```
-
-```env
-VITE_API_URL=http://localhost:5000/api
-```
-
-Run:
-
-```bash
-npm run dev
-```
-
-Admin application:
-
-```text
-http://localhost:5174
-```
-
----
-
-# 🌍 Production Environment
-
-Production frontend API configuration:
-
-```env
-VITE_API_URL=https://mymail-backend.vercel.app/api
-```
-
-The same production API can be used by both the user and admin applications.
-
----
-
-# 🧠 Admin Authentication Flow
-
-Admin authentication does **not** use a separate login API.
-
-```text
-Admin
-  │
-  ▼
-/admin/login
-  │
-  ▼
+## Authentication
+
+```http
+POST /api/auth/register
+GET  /api/auth/verify-email/:token
 POST /api/auth/login
-  │
-  ▼
-JWT Access Token
-  │
-  ▼
-Check User Role
-  │
-  ├── role = user
-  │       ↓
-  │   Access Denied
-  │
-  └── role = admin
-          ↓
-    Admin Dashboard
+POST /api/auth/logout
+POST /api/auth/refresh-token
+POST /api/auth/forgot-password
+POST /api/auth/reset-password/:token
 ```
 
-Backend protection:
+## Profile
 
-```text
-authMiddleware
-      ↓
-adminMiddleware
-      ↓
-Admin Controller
+```http
+GET /api/profile
+PUT /api/profile
+PUT /api/profile/change-password
 ```
 
----
+## Projects
 
-# 📋 Development Roadmap
-
-MyMail is developed in structured phases.
-
-### Phase 1 — Landing + Authentication
-
-* Landing page
-* Login
-* Register
-* Email verification
-* Forgot password
-* Reset password
-* Authentication state
-
-### Phase 2 — User Dashboard
-
-* Dashboard overview
-* Profile
-* Change password
-* Statistics
-* Recent activities
-
-### Phase 3 — Projects + API Keys
-
-* Project CRUD
-* API key generation
-* API key regeneration
-* Key activation/deactivation
-* Secure key handling
-
-### Phase 4 — Templates + Email Engine
-
-* System templates
-* Custom templates
-* Template editor
-* Variables
-* Email sending
-* Email preview
-
-### Phase 5 — Email Logs + Analytics
-
-* Email history
-* Email details
-* Filters
-* Pagination
-* Statistics
-* Charts
-* Reports
-
-### Phase 6 — Admin Dashboard
-
-* Admin overview
-* User management
-* Project management
-* Email management
-* Template management
-* API key monitoring
-* Analytics
-* Activity logs
-* Admin profile
-
----
-
-# 📌 Important Business Rules
-
-### Project
-
-A user cannot create two projects with the same project name.
-
-### API Keys
-
-Each project can have:
-
-```text
-1 Development Key
-1 Production Key
+```http
+PO
 ```
-
-### Raw API Key
-
-The raw key is displayed only during:
-
-```text
-Generation
-Regeneration
-```
-
-It is never returned again.
-
-### Password Change
-
-Changing/resetting a password invalidates existing refresh-token sessions.
-
-### Email Templates
-
-Dynamic variables are resolved from:
-
-```text
-Project Data
-     +
-Request Data
-```
-
-### Project/API Key Deletion
-
-Projects and API keys use status-based management to preserve email log integrity.
-
-```text
-active
-inactive
-```
-
-### Admin Access
-
-Admins can manage platform resources but cannot send emails as another user.
-
----
-
-# 🔒 Environment Security
-
-The repository intentionally ignores environment files.
-
-```gitignore
-**/.env
-**/.env.*
-!.env.example
-```
-
-Never commit:
-
-```text
-.env
-.env.local
-.env.production
-```
-
-Use `.env.example` for documenting variable names without real credentials.
-
----
-
-# 🚀 Deployment
-
-## User Frontend
-
-Recommended deployment:
-
-```text
-Vercel
-   ↓
-Root Directory
-frontend
-```
-
-Build:
-
-```bash
-npm run build
-```
-
-Output:
-
-```text
-dist
-```
-
-Environment variable:
-
-```env
-VITE_API_URL=https://mymail-backend.vercel.app/api
-```
-
----
-
-## Backend
-
-Production backend:
-
-```text
-https://mymail-backend.vercel.app/
-```
-
-API:
-
-```text
-https://mymail-backend.vercel.app/api
-```
-
----
-
-## Admin Frontend
-
-The admin application is maintained as a separate frontend application:
-
-```text
-adminfrontend/
-```
-
-This allows the administrative interface to remain isolated from the public user application.
-
----
-
-# 📈 Future Scope
-
-Possible future improvements include:
-
-* Multiple SMTP providers
-* Per-project SMTP configuration
-* Email provider integrations
-* Email queues
-* Retry mechanism
-* Webhooks
-* Delivery tracking
-* Bounce handling
-* Open/click tracking
-* Advanced analytics
-* Custom domains
-* Billing integration
-* Subscription management
-* Usage-based pricing
-* Team members and roles
-* API documentation portal
-* Developer SDKs
-* Email scheduling
-
----
-
-# 🏆 Project Vision
-
-MyMail aims to provide a developer-friendly email infrastructure layer similar in concept to modern transactional email platforms.
-
-The long-term vision is:
-
-```text
-                     MYMAIL
-                        │
-        ┌───────────────┼───────────────┐
-        │               │               │
-        ▼               ▼               ▼
-     Projects        Templates       API Keys
-        │               │               │
-        └───────────────┼───────────────┘
-                        │
-                        ▼
-                  EMAIL ENGINE
-                        │
-                        ▼
-                     SMTP
-                        │
-                        ▼
-                 EMAIL DELIVERY
-                        │
-                        ▼
-                  LOGS + ANALYTICS
-```
-
----
-
-# ⭐ Why MyMail?
-
-```text
-✓ Developer Friendly
-✓ API First
-✓ Secure Authentication
-✓ Hashed API Keys
-✓ Dynamic Templates
-✓ SMTP Email Engine
-✓ Email Logs
-✓ Analytics
-✓ Multi-Tenant Architecture
-✓ Separate Admin Panel
-✓ Scalable Project Structure
-```
-
----
-
-# 👨‍💻 Project
-
-**MyMail — Email Infrastructure SaaS Platform**
-
-Built with:
-
-```text
-React
-Node.js
-Express
-MongoDB
-Mongoose
-JWT
-Redux Toolkit
-Nodemailer
-Vite
-```
-
----
-
-<p align="center">
-
-### 🚀 MyMail — Build. Send. Track.
-
-**Modern Email Infrastructure for Modern Applications.**
-
-</p>
-
-<p align="center">
-  ⭐ Star the repository if you find the project useful.
-</p>
