@@ -1,0 +1,43 @@
+# Dependencies
+**/node_modules/
+
+# Environment variables
+**/.env
+**/.env.*
+!.env.example
+
+# Build output
+**/dist/
+**/dist-ssr/
+**/build/
+
+# Logs
+**/logs/
+**/*.log
+
+# Coverage
+**/coverage/
+**/.nyc_output/
+
+# Temporary files
+**/tmp/
+**/temp/
+
+# Vite
+**/.vite/
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

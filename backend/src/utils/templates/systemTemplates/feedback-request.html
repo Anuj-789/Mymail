@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Feedback Request</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#fff7ed;font-family:Arial;color:#334155}
+.wrapper{width:100%;padding:40px 15px}
+.container{
+ width:100%;max-width:600px;margin:auto;background:#fff;
+ border-radius:22px;overflow:hidden;
+ box-shadow:0 30px 60px rgba(0,0,0,.17);
+}
+.header{
+ padding:45px 25px;text-align:center;color:#fff;
+ background:linear-gradient(135deg,#ea580c,#f97316);
+}
+.icon{
+ font-size:52px;display:inline-block;
+ animation:float 3s infinite;
+}
+.header h1{font-size:30px}
+.content{padding:45px}
+.card{
+ padding:25px;border-radius:18px;
+ background:#fff7ed;
+ box-shadow:9px 9px 22px rgba(0,0,0,.1);
+}
+.button-wrap{text-align:center;margin:35px 0}
+.button{
+ display:inline-block;padding:16px 35px;border-radius:50px;
+ background:linear-gradient(135deg,#ea580c,#f97316);
+ color:#fff!important;text-decoration:none;font-weight:bold;
+ box-shadow:0 12px 25px rgba(234,88,12,.35);
+}
+.footer{padding:25px;text-align:center;background:#f1f5f9}
+@keyframes float{50%{transform:translateY(-10px)}}
+@media(max-width:600px){
+ .wrapper{padding:15px 8px}
+ .header{padding:32px 20px}
+ .header h1{font-size:25px}
+ .content{padding:25px 18px}
+ .card{padding:20px}
+ .button{display:block}
+}
+</style>
+</head>
+
+<body>
+<div class="wrapper">
+<div class="container">
+
+<div class="header">
+<div class="icon">⭐</div>
+<h1>We Value Your Feedback</h1>
+</div>
+
+<div class="content">
+<div class="card">
+<h2>Hello {{customerName}}</h2>
+<p>We hope you are enjoying {{productName}}.</p>
+<p>Please share your valuable feedback with us.</p>
+</div>
+
+<div class="button-wrap">
+<a href="{{feedbackLink}}" class="button">Give Feedback</a>
+</div>
+</div>
+
+<div class="footer">{{companyName}}</div>
+
+</div>
+</div>
+</body>
+</html>

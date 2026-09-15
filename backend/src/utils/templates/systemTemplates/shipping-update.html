@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Shipping Update</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f5f3ff;font-family:Arial;color:#334155}
+.wrapper{width:100%;padding:40px 15px}
+.container{
+ width:100%;max-width:600px;margin:auto;background:#fff;
+ border-radius:22px;overflow:hidden;
+ box-shadow:0 30px 60px rgba(0,0,0,.18);
+}
+.header{
+ background:linear-gradient(135deg,#7c3aed,#a855f7);
+ padding:45px 25px;text-align:center;color:#fff;
+}
+.icon{
+ font-size:52px;display:inline-block;
+ animation:float 3s infinite;
+}
+.header h1{font-size:29px}
+.content{padding:45px}
+.track{
+ background:#faf5ff;padding:25px;border-radius:18px;
+ border-left:5px solid #7c3aed;
+ box-shadow:9px 9px 22px rgba(0,0,0,.1);
+}
+.track p{line-height:1.5}
+.footer{background:#f1f5f9;padding:25px;text-align:center;color:#64748b}
+@keyframes float{50%{transform:translateY(-10px)}}
+@media(max-width:600px){
+ .wrapper{padding:15px 8px}
+ .header{padding:32px 20px}
+ .header h1{font-size:24px}
+ .content{padding:25px 18px}
+ .track{padding:18px}
+}
+</style>
+</head>
+
+<body>
+<div class="wrapper">
+<div class="container">
+
+<div class="header">
+<div class="icon">🚚</div>
+<h1>Your Order Is On The Way</h1>
+</div>
+
+<div class="content">
+<h2>Hello {{customerName}}</h2>
+<p>Your order has been shipped successfully.</p>
+
+<div class="track">
+<p><b>Order ID:</b> {{orderId}}</p>
+<p><b>Tracking ID:</b> {{trackingId}}</p>
+<p><b>Expected Delivery:</b> {{deliveryDate}}</p>
+</div>
+</div>
+
+<div class="footer">{{companyName}}</div>
+
+</div>
+</div>
+</body>
+</html>

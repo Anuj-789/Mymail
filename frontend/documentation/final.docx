@@ -1,0 +1,771 @@
+Bilkul. Ab hum frontend ko proper SaaS production-level structure me banayenge. Pehle sirf folders aur files create karenge, coding baad me start karenge.
+
+Tumhara backend ka scope clear hai:
+
+Public Landing Website
+Authentication
+User Dashboard
+Projects
+API Keys
+Templates
+Email Sending
+Email Logs
+Analytics
+Settings
+Admin Panel
+
+Isliye frontend bhi module-based architecture me rakhenge.
+
+Final structure ye rahega:
+
+frontend/
+│
+├── public/
+│   ├── favicon.ico
+│   └── logo.png
+│
+├── src/
+│
+│── assets/
+│   │
+│   ├── images/
+│   ├── icons/
+│   ├── logos/
+│   ├── svg/
+│   └── fonts/
+│
+│
+├── components/
+│   │
+│   ├── ui/
+│   │   ├── Button.jsx
+│   │   ├── Input.jsx
+│   │   ├── Card.jsx
+│   │   ├── Modal.jsx
+│   │   ├── Loader.jsx
+│   │   ├── Spinner.jsx
+│   │   ├── Badge.jsx
+│   │   ├── Table.jsx
+│   │   ├── Pagination.jsx
+│   │   └── EmptyState.jsx
+│   │
+│   ├── navbar/
+│   │   └── Navbar.jsx
+│   │
+│   ├── footer/
+│   │   └── Footer.jsx
+│   │
+│   ├── sidebar/
+│   │   └── Sidebar.jsx
+│   │
+│   └── protected/
+│       ├── ProtectedRoute.jsx
+│       └── AdminRoute.jsx
+│
+│
+├── layouts/
+│   │
+│   ├── PublicLayout.jsx
+│   ├── AuthLayout.jsx
+│   ├── DashboardLayout.jsx
+│   └── AdminLayout.jsx
+│
+│
+├── routes/
+│   │
+│   ├── index.jsx
+│   ├── PublicRoutes.jsx
+│   ├── AuthRoutes.jsx
+│   ├── DashboardRoutes.jsx
+│   └── AdminRoutes.jsx
+│
+│
+├── services/
+│   │
+│   ├── api.js
+│   ├── auth.api.js
+│   ├── project.api.js
+│   ├── template.api.js
+│   ├── email.api.js
+│   ├── apiKey.api.js
+│   ├── dashboard.api.js
+│   └── admin.api.js
+│
+│
+├── hooks/
+│   │
+│   ├── useAuth.js
+│   ├── useFetch.js
+│   └── usePagination.js
+│
+│
+├── context/
+│   │
+│   ├── AuthContext.jsx
+│   └── ThemeContext.jsx
+│
+│
+├── utils/
+│   │
+│   ├── constants.js
+│   ├── validators.js
+│   ├── formatDate.js
+│   └── storage.js
+│
+│
+├── modules/
+│
+│
+│================================================
+│ AUTH MODULE
+│================================================
+│
+├── auth/
+│   │
+│   ├── pages/
+│   │   ├── Login.jsx
+│   │   ├── Register.jsx
+│   │   ├── VerifyEmail.jsx
+│   │   ├── ForgotPassword.jsx
+│   │   └── ResetPassword.jsx
+│   │
+│   ├── components/
+│   │   ├── LoginForm.jsx
+│   │   ├── RegisterForm.jsx
+│   │   └── PasswordInput.jsx
+│   │
+│   └── auth.routes.jsx
+│
+│
+│================================================
+│ LANDING MODULE
+│================================================
+│
+├── landing/
+│   │
+│   ├── pages/
+│   │   └── Home.jsx
+│   │
+│   ├── components/
+│   │   ├── Hero.jsx
+│   │   ├── Features.jsx
+│   │   ├── HowItWorks.jsx
+│   │   ├── Pricing.jsx
+│   │   ├── Testimonials.jsx
+│   │   ├── FAQ.jsx
+│   │   └── CTA.jsx
+│   │
+│   └── landing.routes.jsx
+│
+│
+│================================================
+│ USER DASHBOARD MODULE
+│================================================
+│
+├── dashboard/
+│   │
+│   ├── pages/
+│   │   └── Dashboard.jsx
+│   │
+│   ├── components/
+│   │   ├── StatsCard.jsx
+│   │   ├── RecentProjects.jsx
+│   │   ├── RecentEmails.jsx
+│   │   └── UsageCard.jsx
+│   │
+│   └── dashboard.routes.jsx
+│
+│
+│================================================
+│ PROJECT MODULE
+│================================================
+│
+├── projects/
+│   │
+│   ├── pages/
+│   │   ├── Projects.jsx
+│   │   ├── CreateProject.jsx
+│   │   ├── EditProject.jsx
+│   │   └── ProjectDetails.jsx
+│   │
+│   ├── components/
+│   │   ├── ProjectCard.jsx
+│   │   ├── ProjectForm.jsx
+│   │   └── ProjectTable.jsx
+│   │
+│   └── project.routes.jsx
+│
+│
+│================================================
+│ API KEY MODULE
+│================================================
+│
+├── apiKeys/
+│   │
+│   ├── pages/
+│   │   └── ApiKeys.jsx
+│   │
+│   ├── components/
+│   │   ├── ApiKeyCard.jsx
+│   │   ├── ApiKeyTable.jsx
+│   │   └── GenerateKeyModal.jsx
+│   │
+│   └── apiKey.routes.jsx
+│
+│
+│================================================
+│ TEMPLATE MODULE
+│================================================
+│
+├── templates/
+│   │
+│   ├── pages/
+│   │   ├── Templates.jsx
+│   │   ├── CreateTemplate.jsx
+│   │   ├── EditTemplate.jsx
+│   │   └── TemplatePreview.jsx
+│   │
+│   ├── components/
+│   │   ├── TemplateCard.jsx
+│   │   ├── TemplateEditor.jsx
+│   │   ├── VariableInsert.jsx
+│   │   └── TemplateForm.jsx
+│   │
+│   └── template.routes.jsx
+│
+│
+│================================================
+│ EMAIL MODULE
+│================================================
+│
+├── email/
+│   │
+│   ├── pages/
+│   │   ├── SendEmail.jsx
+│   │   └── EmailPreview.jsx
+│   │
+│   ├── components/
+│   │   ├── EmailForm.jsx
+│   │   ├── VariableInput.jsx
+│   │   └── EmailEditor.jsx
+│   │
+│   └── email.routes.jsx
+│
+│
+│================================================
+│ EMAIL LOG MODULE
+│================================================
+│
+├── emailLogs/
+│   │
+│   ├── pages/
+│   │   ├── EmailLogs.jsx
+│   │   └── EmailLogDetails.jsx
+│   │
+│   ├── components/
+│   │   ├── LogsTable.jsx
+│   │   └── StatusBadge.jsx
+│   │
+│   └── emailLogs.routes.jsx
+│
+│
+│================================================
+│ ANALYTICS MODULE
+│================================================
+│
+├── analytics/
+│   │
+│   ├── pages/
+│   │   └── Analytics.jsx
+│   │
+│   ├── components/
+│   │   ├── Charts.jsx
+│   │   ├── UsageGraph.jsx
+│   │   └── Stats.jsx
+│   │
+│   └── analytics.routes.jsx
+│
+│
+│================================================
+│ SETTINGS MODULE
+│================================================
+│
+├── settings/
+│   │
+│   ├── pages/
+│   │   ├── Profile.jsx
+│   │   └── ChangePassword.jsx
+│   │
+│   ├── components/
+│   │   ├── ProfileForm.jsx
+│   │   └── PasswordForm.jsx
+│   │
+│   └── settings.routes.jsx
+│
+│
+│================================================
+│ ADMIN MODULE
+│================================================
+│
+└── admin/
+    │
+    ├── pages/
+    │   ├── AdminDashboard.jsx
+    │   ├── Users.jsx
+    │   ├── UserDetails.jsx
+    │   ├── Projects.jsx
+    │   ├── Emails.jsx
+    │   ├── Templates.jsx
+    │   ├── ApiKeys.jsx
+    │   ├── Analytics.jsx
+    │   └── Activities.jsx
+    │
+    ├── components/
+    │   ├── AdminCards.jsx
+    │   ├── UsersTable.jsx
+    │   ├── ProjectTable.jsx
+    │   └── ActivityTable.jsx
+    │
+    └── admin.routes.jsx
+│
+│
+├── App.jsx
+├── main.jsx
+│
+├── .env
+├── package.json
+├── vite.config.js
+└── index.html
+Ab create karne ka order:
+
+Pehle ye banao:
+
+Step 1:
+src/
+assets/
+components/
+layouts/
+routes/
+services/
+hooks/
+context/
+utils/
+modules/
+Step 2:
+
+modules ke andar:
+
+landing
+auth
+dashboard
+projects
+apiKeys
+templates
+email
+emailLogs
+analytics
+settings
+admin
+Step 3:
+
+Har module ke andar:
+
+pages/
+components/
+routes file
+
+frontend/
+
+│
+├── public/
+
+│
+
+├── src/
+
+│
+
+├── app/
+│   └── store.js
+
+│
+
+├── assets/
+│   ├── images/
+│   ├── icons/
+│   ├── logos/
+│   ├── svg/
+│   └── fonts/
+
+│
+
+├── components/
+│   ├── ui/
+│   ├── navbar/
+│   ├── footer/
+│   ├── sidebar/
+│   └── protected/
+
+│
+
+├── layouts/
+│   ├── PublicLayout.jsx
+│   ├── AuthLayout.jsx
+│   ├── DashboardLayout.jsx
+│   └── AdminLayout.jsx
+
+│
+
+├── routes/
+│   ├── index.jsx
+│   ├── PublicRoutes.jsx
+│   ├── AuthRoutes.jsx
+│   ├── DashboardRoutes.jsx
+│   └── AdminRoutes.jsx
+
+│
+
+├── services/
+│   ├── api.js
+│   ├── auth.api.js
+│   ├── project.api.js
+│   ├── template.api.js
+│   ├── apiKey.api.js
+│   ├── email.api.js
+│   ├── dashboard.api.js
+│   └── admin.api.js
+
+│
+
+├── hooks/
+│   ├── useAuth.js
+│   ├── useFetch.js
+│   └── usePagination.js
+
+│
+
+├── context/
+│   └── ThemeContext.jsx
+
+│
+
+├── utils/
+│   ├── constants.js
+│   ├── validators.js
+│   ├── storage.js
+│   └── formatDate.js
+
+│
+
+├── features/          ← Redux Toolkit
+│
+│   ├── auth/
+│   │   ├── authSlice.js
+│   │   ├── authThunk.js
+│   │   ├── authAPI.js
+│   │   └── authSelectors.js
+│   │
+│   ├── profile/
+│   │   ├── profileSlice.js
+│   │   ├── profileThunk.js
+│   │   ├── profileAPI.js
+│   │   └── profileSelectors.js
+│   │
+│   ├── project/
+│   │   ├── projectSlice.js
+│   │   ├── projectThunk.js
+│   │   ├── projectAPI.js
+│   │   └── projectSelectors.js
+│   │
+│   ├── template/
+│   │   ├── templateSlice.js
+│   │   ├── templateThunk.js
+│   │   ├── templateAPI.js
+│   │   └── templateSelectors.js
+│   │
+│   ├── apiKey/
+│   │   ├── apiKeySlice.js
+│   │   ├── apiKeyThunk.js
+│   │   ├── apiKeyAPI.js
+│   │   └── apiKeySelectors.js
+│   │
+│   ├── email/
+│   │   ├── emailSlice.js
+│   │   ├── emailThunk.js
+│   │   ├── emailAPI.js
+│   │   └── emailSelectors.js
+│   │
+│   ├── emailLogs/
+│   │   ├── emailLogsSlice.js
+│   │   ├── emailLogsThunk.js
+│   │   ├── emailLogsAPI.js
+│   │   └── emailLogsSelectors.js
+│   │
+│   ├── dashboard/
+│   │   ├── dashboardSlice.js
+│   │   ├── dashboardThunk.js
+│   │   ├── dashboardAPI.js
+│   │   └── dashboardSelectors.js
+│   │
+│   └── admin/
+│       ├── adminSlice.js
+│       ├── adminThunk.js
+│       ├── adminAPI.js
+│       └── adminSelectors.js
+
+│
+
+├── modules/            ← UI
+│
+│   ├── landing/
+│   ├── auth/
+│   ├── dashboard/
+│   ├── projects/
+│   ├── apiKeys/
+│   ├── templates/
+│   ├── email/
+│   ├── emailLogs/
+│   ├── analytics/
+│   ├── settings/
+│   └── admin/
+
+│
+
+├── App.jsx
+├── main.jsx
+└── index.css
+
+
+
+Phase 1 — Public Website (Landing + Authentication)
+
+Purpose: User ko platform ke baare me batana aur authentication complete karna.
+
+Pages
+Home (Landing Page)
+Features
+Pricing
+Documentation
+About
+Contact
+Login
+Register
+Verify Email
+Forgot Password
+Reset Password
+404 Page
+Components
+Navbar
+Footer
+Hero Section
+Features Section
+How It Works
+Pricing Cards
+Testimonials
+FAQ
+CTA Section
+Auth Forms
+Buttons
+Inputs
+Loaders
+Toasts
+Protected Route
+APIs
+Register
+Login
+Verify Email
+Forgot Password
+Reset Password
+Refresh Token
+Logout
+Get Me
+Redux
+authSlice
+loading
+user
+token
+auth persistence
+🚀 Phase 2 — User Dashboard
+
+Purpose: Login ke baad user ka complete dashboard.
+
+Pages
+Dashboard Overview
+Profile
+Change Password
+Components
+Dashboard Layout
+Sidebar
+Header
+Stats Cards
+Recent Projects
+Recent Emails
+Charts
+Profile Form
+Password Form
+APIs
+Get Dashboard
+Get Profile
+Update Profile
+Change Password
+Redux
+dashboardSlice
+profileSlice
+🚀 Phase 3 — Project & API Key Management
+
+Purpose: Projects aur API Keys manage karna.
+
+Project Module
+Project List
+Create Project
+Edit Project
+Project Details
+API Key Module
+API Keys List
+Generate API Key
+Regenerate API Key
+Activate/Deactivate API Key
+Components
+Project Card
+Project Form
+API Key Table
+Generate Key Modal
+Copy Key Button
+Status Badge
+APIs
+CRUD Projects
+Generate API Key
+Get API Keys
+Regenerate Key
+Update Key Status
+Redux
+projectSlice
+apiKeySlice
+🚀 Phase 4 — Email Templates & Email Engine
+
+Purpose: Email templates banana aur email send karna.
+
+Template Module
+System Templates
+My Templates
+Create Template
+Edit Template
+Template Preview
+Email Module
+Send Email
+Email Preview
+Components
+Template Editor
+Variable Picker
+HTML Preview
+Email Form
+Recipient Form
+APIs
+Template CRUD
+Send Email
+Redux
+templateSlice
+emailSlice
+🚀 Phase 5 — Email Logs & Analytics
+
+Purpose: Email history aur analytics dekhna.
+
+Pages
+Email Logs
+Email Details
+Analytics
+Reports
+Components
+Logs Table
+Filters
+Pagination
+Charts
+Statistics Cards
+Export Buttons
+APIs
+Email Logs
+Email Details
+Analytics
+Redux
+emailLogSlice
+analyticsSlice
+🚀 Phase 6 — Admin Dashboard
+
+Purpose: Platform ko admin ke through manage karna.
+
+Pages
+Admin Overview
+Users
+User Details
+Projects
+Project Details
+Templates
+Emails
+Email Details
+API Keys
+Analytics
+Activities
+Admin Profile
+Components
+Admin Sidebar
+Admin Header
+Users Table
+Projects Table
+Email Table
+Activity Table
+Charts
+Status Badges
+APIs
+Admin Overview
+User Management
+Project Management
+Template Management
+Email Management
+API Key Management
+Analytics
+Activities
+Admin Profile
+Redux
+adminSlice
+usersSlice
+adminProjectSlice
+adminTemplateSlice
+adminEmailSlice
+adminAnalyticsSlice
+📌 Final Development Flow
+Phase 1
+Landing Website
++
+Authentication
+        │
+        ▼
+Phase 2
+Dashboard
++
+Profile
+        │
+        ▼
+Phase 3
+Projects
++
+API Keys
+        │
+        ▼
+Phase 4
+Templates
++
+Email Engine
+        │
+        ▼
+Phase 5
+Email Logs
++
+Analytics
+        │
+        ▼
+Phase 6
+Admin Dashboard
+
+Ye sequence tumhare backend architecture se bhi perfectly match karta hai aur industry-standard SaaS frontend development flow bhi follow karta hai.
+
+Agla step: Phase 1 se shuruaat karte hain aur pehle ek modern SaaS landing page banayenge (hero, navbar, features, pricing, testimonials, FAQ, footer), uske baad authentication screens par jayenge.

@@ -1,0 +1,82 @@
+:root {
+
+
+/* =====================
+   MYMAIL ORANGE BRAND
+===================== */
+
+
+--primary: #f97316;
+--primary-light: #fb923c;
+--primary-dark: #ea580c;
+
+
+
+/* Accent */
+
+--accent: #facc15;
+
+
+
+/* =====================
+   BACKGROUND
+===================== */
+
+
+--background: #0c0a09;
+
+--card: #1c1917;
+
+
+
+/* =====================
+   TEXT
+===================== */
+
+
+--text: #fafaf9;
+
+--muted: #a8a29e;
+
+
+
+/* =====================
+   BORDER
+===================== */
+
+
+--border: #292524;
+
+
+
+/* =====================
+   STATUS COLORS
+===================== */
+
+
+--success: #22c55e;
+
+--warning: #eab308;
+
+--danger: #ef4444;
+
+--info: #3b82f6;
+
+
+
+/* =====================
+   GRADIENT
+===================== */
+
+
+--gradient-primary:
+
+linear-gradient(
+135deg,
+#ea580c,
+#f97316,
+#facc15
+);
+
+
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Newsletter</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f0f9ff;font-family:Arial;color:#334155}
+.wrapper{width:100%;padding:40px 15px}
+.container{
+ width:100%;max-width:600px;margin:auto;background:#fff;
+ border-radius:22px;overflow:hidden;
+ box-shadow:0 30px 60px rgba(0,0,0,.17);
+}
+.header{
+ background:linear-gradient(135deg,#0284c7,#06b6d4);
+ padding:50px 25px;text-align:center;color:#fff;
+}
+.icon{
+ font-size:55px;display:inline-block;
+ animation:float 3s infinite;
+}
+.header h1{font-size:30px}
+.content{padding:45px}
+.card{
+ background:#f0f9ff;padding:25px;border-radius:18px;
+ box-shadow:9px 9px 22px rgba(0,0,0,.1);
+ line-height:1.7;
+}
+.button-wrap{text-align:center;margin:35px 0}
+.button{
+ display:inline-block;padding:15px 35px;border-radius:50px;
+ background:linear-gradient(135deg,#0284c7,#06b6d4);
+ color:white!important;text-decoration:none;font-weight:bold;
+ box-shadow:0 10px 25px rgba(2,132,199,.35);
+}
+.footer{padding:25px;text-align:center;background:#f1f5f9}
+@keyframes float{50%{transform:translateY(-10px)}}
+@media(max-width:600px){
+ .wrapper{padding:15px 8px}
+ .header{padding:32px 20px}
+ .header h1{font-size:25px}
+ .content{padding:25px 18px}
+ .card{padding:20px}
+ .button{display:block}
+}
+</style>
+</head>
+
+<body>
+<div class="wrapper">
+<div class="container">
+
+<div class="header">
+<div class="icon">📰</div>
+<h1>{{title}}</h1>
+</div>
+
+<div class="content">
+<h2>Hello {{userName}}</h2>
+
+<div class="card">
+<p>{{content}}</p>
+</div>
+
+<div class="button-wrap">
+<a href="{{actionLink}}" class="button">Read More</a>
+</div>
+</div>
+
+<div class="footer">{{companyName}}</div>
+
+</div>
+</div>
+</body>
+</html>

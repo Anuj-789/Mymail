@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Account Created</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+    margin:0;
+    padding:0;
+    background:#eef2ff;
+    font-family:Arial,Helvetica,sans-serif;
+    color:#334155;
+}
+.wrapper{
+    width:100%;
+    padding:40px 15px;
+}
+.container{
+    width:100%;
+    max-width:600px;
+    margin:auto;
+    background:#fff;
+    border-radius:22px;
+    overflow:hidden;
+    box-shadow:
+        0 30px 60px rgba(15,23,42,.18),
+        0 12px 25px rgba(37,99,235,.12);
+}
+.header{
+    padding:45px 25px;
+    text-align:center;
+    color:#fff;
+    background:linear-gradient(135deg,#0891b2,#2563eb);
+    box-shadow:inset 0 -12px 25px rgba(0,0,0,.15);
+}
+.icon{
+    font-size:52px;
+    display:inline-block;
+    animation:float 3s ease-in-out infinite;
+    filter:drop-shadow(0 10px 8px rgba(0,0,0,.2));
+}
+h1{
+    margin:15px 0 5px;
+    font-size:32px;
+}
+.content{
+    padding:45px;
+}
+.card{
+    padding:25px;
+    border-radius:18px;
+    background:linear-gradient(145deg,#fff,#f1f5f9);
+    box-shadow:
+        9px 9px 22px rgba(15,23,42,.12),
+        -7px -7px 18px rgba(255,255,255,.9);
+}
+.card h2{margin-top:0;color:#111827}
+.button-wrap{text-align:center;margin:35px 0}
+.button{
+    display:inline-block;
+    padding:16px 35px;
+    border-radius:50px;
+    background:linear-gradient(135deg,#0891b2,#2563eb);
+    color:#fff!important;
+    text-decoration:none;
+    font-weight:bold;
+    box-shadow:0 12px 25px rgba(37,99,235,.35);
+}
+.support{
+    padding:18px;
+    border-radius:12px;
+    background:#f8fafc;
+}
+.footer{
+    padding:25px;
+    text-align:center;
+    background:#f1f5f9;
+    color:#64748b;
+    font-size:13px;
+}
+@keyframes float{
+    0%,100%{transform:translateY(0) rotateX(0)}
+    50%{transform:translateY(-10px) rotateX(8deg)}
+}
+@media(max-width:600px){
+    .wrapper{padding:15px 8px}
+    .container{border-radius:16px}
+    .header{padding:32px 20px}
+    h1{font-size:25px}
+    .content{padding:25px 18px}
+    .card{padding:20px}
+    .button{display:block;padding:15px 20px}
+}
+</style>
+</head>
+
+<body>
+<div class="wrapper">
+<div class="container">
+
+<div class="header">
+<div class="icon">🚀</div>
+<h1>{{appName}}</h1>
+<p>Your journey starts now</p>
+</div>
+
+<div class="content">
+<div class="card">
+<h2>Welcome {{userName}} 🎉</h2>
+<p>Your account has been successfully created.</p>
+<p>You can now access all features of our platform.</p>
+</div>
+
+<div class="button-wrap">
+<a href="{{dashboardLink}}" class="button">Open Dashboard</a>
+</div>
+
+<div class="support">
+<p>Need help?</p>
+<strong>{{supportEmail}}</strong>
+</div>
+</div>
+
+<div class="footer">
+© {{companyName}}<br><br>
+This is an automated email. Please do not reply.
+</div>
+
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Welcome Email</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#eff6ff;font-family:Arial;color:#334155}
+.wrapper{width:100%;padding:40px 15px}
+.container{
+ width:100%;max-width:600px;margin:auto;background:#fff;
+ border-radius:22px;overflow:hidden;
+ box-shadow:0 30px 60px rgba(0,0,0,.18);
+}
+.header{
+ background:linear-gradient(135deg,#2563eb,#3b82f6);
+ padding:45px 25px;color:#fff;text-align:center;
+ box-shadow:inset 0 -12px 25px rgba(0,0,0,.12);
+}
+.icon{
+ font-size:52px;display:inline-block;
+ animation:float 3s infinite;
+}
+.header h1{font-size:30px}
+.content{padding:45px}
+.button-wrap{text-align:center;margin:35px 0}
+.button{
+ display:inline-block;padding:16px 35px;
+ background:linear-gradient(135deg,#2563eb,#3b82f6);
+ color:#fff!important;border-radius:50px;
+ text-decoration:none;font-weight:bold;
+ box-shadow:0 12px 25px rgba(37,99,235,.4);
+}
+.footer{
+ background:#f1f5f9;padding:25px;
+ text-align:center;color:#64748b;font-size:13px;
+}
+@keyframes float{
+ 0%,100%{transform:translateY(0)}
+ 50%{transform:translateY(-10px)}
+}
+@media(max-width:600px){
+ .wrapper{padding:15px 8px}
+ .header{padding:32px 20px}
+ .header h1{font-size:25px}
+ .content{padding:25px 18px}
+ .button{display:block}
+}
+</style>
+</head>
+
+<body>
+<div class="wrapper">
+<div class="container">
+
+<div class="header">
+<div class="icon">🎉</div>
+<h1>{{appName}}</h1>
+</div>
+
+<div class="content">
+<h2>Hello {{userName}}</h2>
+
+<p>Welcome to <b>{{appName}}</b></p>
+
+<p>
+We are happy to have you with us.
+Your account has been created successfully.
+</p>
+
+<div class="button-wrap">
+<a href="{{loginLink}}" class="button">Login Now</a>
+</div>
+
+<p>Support: {{supportEmail}}</p>
+</div>
+
+<div class="footer">
+© {{companyName}}<br><br>
+Automated Email
+</div>
+
+</div>
+</div>
+</body>
+</html>
