@@ -1,17 +1,19 @@
-# 🚀 MyMail — Modern Email Infrastructure SaaS
+#  <span style="color:#f97316">My</span><span style="color:#fb923c">Mail</span> — Modern Email Infrastructure SaaS
 
 <p align="center">
   <img src="./frontend/public/gungif3.gif" alt="MyMail Logo" width="180"/>
 </p>
 
-<h1 align="center">MyMail</h1>
+<h1 align="center">
+  <span style="color:#fafaf9">My</span><span style="color:#f97316">Mail</span>
+</h1>
 
 <p align="center">
   <strong>Modern Email Infrastructure for Developers, Startups & Businesses</strong>
 </p>
 
 <p align="center">
-  Build projects • Generate API Keys • Create Templates • Send Emails • Track Logs • Analyze Usage
+  Build Projects • Generate API Keys • Create Templates • Send Emails • Track Logs • Analyze Usage
 </p>
 
 <p align="center">
@@ -35,29 +37,21 @@
 
 ---
 
-## 🌐 Live Project
+# 🌐 Live Project
 
-### 🖥️ User Application
-
-**MyMail — Live SaaS Application**
+## 🖥️ <span style="color:#f97316">MyMail</span> — User Application
 
 https://mymail-alpha.vercel.app/
-
-### ⚙️ Backend API
-
-**MyMail — Production Backend**
-
-https://mymail-backend.vercel.app/
 
 ---
 
 # 🧊 3D SaaS Overview
 
 ```text
-                         ┌─────────────────────────┐
-                         │       🌐 MyMail         │
-                         │   Email Infrastructure  │
-                         └────────────┬────────────┘
+                         ╔═════════════════════════╗
+                         ║       🟠 MyMail         ║
+                         ║   Email Infrastructure  ║
+                         ╚════════════╤════════════╝
                                       │
                     ┌─────────────────┼─────────────────┐
                     │                 │                 │
@@ -74,7 +68,7 @@ https://mymail-backend.vercel.app/
                    └────────┬────────┘
                             ▼
                     ┌───────────────┐
-                    │ 📧 Templates  │
+                    │ 📝 Templates  │
                     └───────┬───────┘
                             ▼
                     ┌───────────────┐
@@ -90,11 +84,11 @@ https://mymail-backend.vercel.app/
                     └───────────────┘
 ```
 
-> MyMail follows a multi-tenant architecture where users manage projects, API keys, templates and email delivery independently.
+> **MyMail** follows a multi-tenant architecture where users manage projects, API keys, templates and email delivery independently.
 
 ---
 
-# ✨ What is MyMail?
+# ✨ What is <span style="color:#f97316">MyMail</span>?
 
 **MyMail** is a full-stack Email Infrastructure SaaS platform designed to provide developers and businesses with a simple and scalable way to send transactional emails through APIs.
 
@@ -126,7 +120,7 @@ The platform follows a concept similar to modern email infrastructure providers 
 
 # 🎯 Project Vision
 
-MyMail aims to provide a developer-friendly email infrastructure layer where applications can send reliable transactional emails without implementing their own complete email delivery system.
+**MyMail** aims to provide a developer-friendly email infrastructure layer where applications can send reliable transactional emails without implementing their own complete email delivery system.
 
 ### Designed For
 
@@ -182,19 +176,19 @@ Each project can contain:
 User
  │
  ├── Project A
- │    ├── API Keys
- │    ├── Templates
- │    └── Emails
+ │    ├── 🔑 API Keys
+ │    ├── 📝 Templates
+ │    └── 📧 Emails
  │
  ├── Project B
- │    ├── API Keys
- │    ├── Templates
- │    └── Emails
+ │    ├── 🔑 API Keys
+ │    ├── 📝 Templates
+ │    └── 📧 Emails
  │
  └── Project C
-      ├── API Keys
-      ├── Templates
-      └── Emails
+      ├── 🔑 API Keys
+      ├── 📝 Templates
+      └── 📧 Emails
 ```
 
 ---
@@ -229,37 +223,37 @@ x-api-key: YOUR_API_KEY
 
 # 📧 Email Engine
 
-The email engine is the heart of MyMail.
+The email engine is the heart of **MyMail**.
 
 ```text
 API Request
      │
      ▼
-API Key Validation
+🔑 API Key Validation
      │
      ▼
-Project Validation
+📁 Project Validation
      │
      ▼
-Template Validation
+📝 Template Validation
      │
      ▼
-Variable Replacement
+🔄 Variable Replacement
      │
      ▼
-Email Rendering
+📄 Email Rendering
      │
      ▼
-SMTP Transport
+⚡ SMTP Transport
      │
      ▼
-Email Delivery
+📨 Email Delivery
      │
      ▼
-Email Log
+📊 Email Log
 ```
 
-### Supported Flow
+### Example Request
 
 ```json
 {
@@ -321,18 +315,14 @@ Every email activity can be tracked through the email logging system.
 * Sent time
 * Metadata
 
-### Status
+### Delivery Status
 
 ```text
 🟡 Pending
-   ↓
-🟢 Sent
-
-or
-
-🟡 Pending
-   ↓
-🔴 Failed
+   │
+   ├──────────► 🟢 Sent
+   │
+   └──────────► 🔴 Failed
 ```
 
 ---
@@ -360,26 +350,25 @@ The platform also includes an analytics system for administrative monitoring.
 
 MyMail includes a dedicated administration system.
 
-### Admin Capabilities
-
 ```text
-                 👨‍💼 ADMIN
-                    │
-       ┌────────────┼────────────┐
-       ▼            ▼            ▼
-    👥 Users     📁 Projects   📧 Emails
-       │            │            │
-       └────────────┼────────────┘
-                    ▼
-               📊 Analytics
-                    │
-          ┌─────────┴─────────┐
-          ▼                   ▼
-      🔑 API Keys         📝 Templates
-          │                   │
-          └─────────┬─────────┘
-                    ▼
-              📋 Activities
+                    👨‍💼 ADMIN
+                       │
+       ┌───────────────┼───────────────┐
+       │               │               │
+       ▼               ▼               ▼
+    👥 Users       📁 Projects      📧 Emails
+       │               │               │
+       └───────────────┼───────────────┘
+                       ▼
+                  📊 Analytics
+                       │
+             ┌─────────┴─────────┐
+             ▼                   ▼
+         🔑 API Keys         📝 Templates
+             │                   │
+             └─────────┬─────────┘
+                       ▼
+                 📋 Activities
 ```
 
 ### Admin Modules
@@ -402,7 +391,7 @@ MyMail includes a dedicated administration system.
 
 # 🛡️ Security Architecture
 
-Security is a core part of MyMail.
+Security is a core part of **MyMail**.
 
 ### Implemented Security
 
@@ -426,8 +415,6 @@ Security is a core part of MyMail.
 
 Sensitive authentication endpoints are protected with rate limiting.
 
-Configured limits:
-
 ```text
 Window:
 15 Minutes
@@ -448,52 +435,52 @@ Applied to sensitive operations such as:
 
 ## 🎨 Frontend
 
-| Technology           | Purpose                     |
-| -------------------- | --------------------------- |
-| React 19             | UI development              |
-| React DOM            | React rendering             |
-| React Router DOM     | Routing                     |
-| Redux Toolkit        | State management            |
-| React Redux          | Redux integration           |
-| Axios                | API communication           |
-| Tailwind CSS 4       | UI styling                  |
-| Tailwind Vite Plugin | Tailwind + Vite integration |
-| Framer Motion        | Animations                  |
-| Lucide React         | Icons                       |
-| React Hook Form      | Form handling               |
-| Zod                  | Schema validation           |
-| @hookform/resolvers  | Form + schema integration   |
-| React Helmet Async   | SEO / document metadata     |
-| React Hot Toast      | Notifications               |
-| Recharts             | Charts & analytics          |
-| Vite                 | Frontend build tool         |
-| Oxlint               | Linting                     |
+| Technology             | Purpose                     |
+| ---------------------- | --------------------------- |
+| ⚛️ React 19            | UI development              |
+| ⚛️ React DOM           | React rendering             |
+| 🛣️ React Router DOM   | Application routing         |
+| 🔄 Redux Toolkit       | Global state management     |
+| 🔗 React Redux         | Redux integration           |
+| 📡 Axios               | API communication           |
+| 🎨 Tailwind CSS 4      | Utility-first UI styling    |
+| ⚡ Tailwind Vite Plugin | Tailwind + Vite integration |
+| 🎞️ Framer Motion      | Advanced animations         |
+| 🧩 Lucide React        | Modern icons                |
+| 📝 React Hook Form     | Form management             |
+| ✅ Zod                  | Schema validation           |
+| 🔌 Hookform Resolvers  | Form/schema integration     |
+| 🧠 React Helmet Async  | SEO & document metadata     |
+| 🔔 React Hot Toast     | Notifications               |
+| 📊 Recharts            | Charts & analytics          |
+| ⚡ Vite                 | Frontend build system       |
+| 🔍 Oxlint              | Code linting                |
 
 ---
 
 ## ⚙️ Backend
 
-| Technology         | Purpose                   |
-| ------------------ | ------------------------- |
-| Node.js            | Runtime                   |
-| Express 5          | Backend framework         |
-| MongoDB            | Database                  |
-| Mongoose           | MongoDB ODM               |
-| JWT                | Authentication            |
-| bcryptjs           | Password hashing          |
-| Nodemailer         | Email delivery            |
-| Helmet             | Security headers          |
-| CORS               | Cross-origin access       |
-| express-rate-limit | Rate limiting             |
-| Cookie Parser      | Cookie handling           |
-| Morgan             | HTTP request logging      |
-| dotenv             | Environment configuration |
+| Technology            | Purpose                       |
+| --------------------- | ----------------------------- |
+| 🟢 Node.js            | JavaScript runtime            |
+| 🚂 Express 5          | Backend framework             |
+| 🍃 MongoDB            | NoSQL database                |
+| 🦫 Mongoose           | MongoDB ODM                   |
+| 🔐 JSON Web Token     | Authentication                |
+| 🔒 bcryptjs           | Password hashing              |
+| 📧 Nodemailer         | Email delivery                |
+| 🛡️ Helmet            | Security headers              |
+| 🌐 CORS               | Cross-origin resource sharing |
+| 🚦 Express Rate Limit | Request rate limiting         |
+| 🍪 Cookie Parser      | Cookie handling               |
+| 📝 Morgan             | HTTP request logging          |
+| ⚙️ dotenv             | Environment configuration     |
 
 ---
 
 # 🎨 Frontend UI Architecture
 
-MyMail frontend follows a modern SaaS dashboard approach.
+MyMail frontend follows a modern SaaS dashboard architecture.
 
 ```text
                     🖥️ React Application
@@ -533,7 +520,15 @@ Animations can be used across:
 * Charts
 * Interactive components
 
-The UI follows a modern dark SaaS aesthetic with animated gradients, glass-style cards and smooth interactions.
+The UI follows a modern dark SaaS aesthetic with:
+
+* 🟠 Orange gradients
+* 🟡 Accent highlights
+* 🧊 Glass-style cards
+* 🌑 Dark surfaces
+* ✨ Smooth transitions
+* 🧱 3D-inspired layouts
+* 📱 Responsive design
 
 ---
 
@@ -541,18 +536,18 @@ The UI follows a modern dark SaaS aesthetic with animated gradients, glass-style
 
 MyMail uses **Tailwind CSS v4** for modern responsive styling.
 
-The design system is based around:
+### Brand Colors
 
 ```text
-Primary     → Orange
-Accent      → Yellow
-Background  → Dark
-Cards       → Dark Stone
-Text        → Light
-Success     → Green
-Warning     → Yellow
-Danger      → Red
-Info        → Blue
+MyMail Brand
+│
+├── Primary Orange  → #f97316
+├── Light Orange    → #fb923c
+├── Dark Orange     → #ea580c
+├── Accent Yellow   → #facc15
+├── Background      → #0c0a09
+├── Card             → #1c1917
+└── Text             → #fafaf9
 ```
 
 ### Visual Direction
@@ -560,11 +555,11 @@ Info        → Blue
 ```text
 ╭────────────────────────────────────────────╮
 │                                            │
-│        🟠 Modern Dark SaaS Interface       │
+│       🟠 MyMail — Modern SaaS UI           │
 │                                            │
-│   ✦ Glass Cards     ✦ Soft Shadows         │
-│   ✦ Gradients       ✦ 3D Visual Feel       │
-│   ✦ Smooth Motion   ✦ Responsive Layout    │
+│   ✦ Glass Cards       ✦ 3D Visual Feel     │
+│   ✦ Orange Gradients  ✦ Soft Shadows       │
+│   ✦ Smooth Motion     ✦ Responsive Design  │
 │                                            │
 ╰────────────────────────────────────────────╯
 ```
@@ -643,15 +638,11 @@ MyMail follows a hierarchical multi-tenant model:
                   📧 EMAILS
 ```
 
-This structure keeps projects and their email resources logically separated.
-
 ---
 
 # 🗄️ Database Models
 
 MyMail uses MongoDB with Mongoose.
-
-### Core Models
 
 ```text
 User
@@ -671,7 +662,7 @@ User
 └── AdminActivityLog
 ```
 
-### Models
+### Core Models
 
 * `User`
 * `VerificationToken`
@@ -710,5 +701,543 @@ PUT /api/profile/change-password
 ## Projects
 
 ```http
-PO
+POST   /api/projects
+GET    /api/projects
+GET    /api/projects/:id
+PUT    /api/projects/:id
+DELETE /api/projects/:id
 ```
+
+## API Keys
+
+```http
+POST /api/projects/:projectId/api-key
+GET  /api/projects/:projectId/api-key
+PUT  /api/projects/:projectId/api-key/regenerate
+PUT  /api/projects/:projectId/api-key/status
+```
+
+## Templates
+
+```http
+GET    /api/templates
+GET    /api/templates/system
+GET    /api/templates/:id
+POST   /api/templates
+PUT    /api/templates/:id
+DELETE /api/templates/:id
+```
+
+## Email
+
+```http
+POST /api/email/send
+```
+
+## Email Logs
+
+```http
+GET /api/email-logs
+GET /api/email-logs/:id
+```
+
+## Dashboard
+
+```http
+GET /api/dashboard
+```
+
+---
+
+# 👨‍💼 Admin API
+
+```http
+GET  /api/admin-dashboard/admin/overview
+
+GET  /api/admin-dashboard/admin/profile
+PUT  /api/admin-dashboard/admin/profile
+PUT  /api/admin-dashboard/admin/profile/change-password
+
+GET  /api/admin-dashboard/admin/users
+GET  /api/admin-dashboard/admin/users/:id
+PUT  /api/admin-dashboard/admin/users/:id/status
+
+GET  /api/admin-dashboard/admin/projects
+GET  /api/admin-dashboard/admin/projects/:id
+PUT  /api/admin-dashboard/admin/projects/:id/status
+
+GET  /api/admin-dashboard/admin/emails
+GET  /api/admin-dashboard/admin/emails/:id
+GET  /api/admin-dashboard/admin/email-stats
+
+GET    /api/admin-dashboard/admin/templates
+POST   /api/admin-dashboard/admin/templates
+PUT    /api/admin-dashboard/admin/templates/:id
+DELETE /api/admin-dashboard/admin/templates/:id
+
+GET /api/admin-dashboard/analytics
+GET /api/admin-dashboard/activity
+GET /api/admin-dashboard/activity/:id
+
+GET /api/admin-dashboard/api-keys/overview
+GET /api/admin-dashboard/api-keys
+```
+
+---
+
+# ⚙️ Local Development
+
+## 1️⃣ Clone Repository
+
+```bash
+git clone YOUR_REPOSITORY_URL
+cd mail
+```
+
+## 2️⃣ Backend Setup
+
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+Backend:
+
+```text
+http://localhost:5000
+```
+
+## 3️⃣ Frontend Setup
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Frontend:
+
+```text
+http://localhost:5173
+```
+
+## 4️⃣ Admin Frontend Setup
+
+```bash
+cd adminfrontend
+npm install
+npm run dev
+```
+
+Admin:
+
+```text
+http://localhost:5174
+```
+
+---
+
+# 🔐 Environment Variables
+
+### Backend
+
+Create:
+
+```text
+backend/.env
+```
+
+Example:
+
+```env
+PORT=5000
+NODE_ENV=development
+
+MONGO_URI=your_mongodb_connection
+
+JWT_ACCESS_SECRET=your_access_secret
+JWT_REFRESH_SECRET=your_refresh_secret
+
+JWT_ACCESS_EXPIRY=15m
+JWT_REFRESH_EXPIRY=7d
+
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=your_email
+SMTP_PASS=your_app_password
+
+EMAIL_FROM_NAME=MyMail
+EMAIL_FROM_EMAIL=your_email
+
+RATE_LIMIT_WINDOW_MS=900000
+RATE_LIMIT_MAX=5
+```
+
+### Frontend
+
+```env
+VITE_API_URL=http://localhost:5000/api
+```
+
+### Production
+
+```env
+VITE_API_URL=https://mymail-backend.vercel.app/api
+```
+
+> ⚠️ Never commit `.env` files or real secrets to GitHub.
+
+---
+
+# 🚀 Production Deployment
+
+```text
+                    🌐 INTERNET
+                         │
+             ┌───────────┼───────────┐
+             │           │           │
+             ▼           ▼           ▼
+        🖥️ Frontend   ⚙️ Backend   👨‍💼 Admin
+          Vercel       Vercel       Vercel
+             │           │           │
+             └───────────┼───────────┘
+                         ▼
+                     🍃 MongoDB
+                         │
+                         ▼
+                     📧 SMTP
+```
+
+### Current Deployment
+
+```text
+Frontend:
+https://mymail-alpha.vercel.app/
+
+Backend:
+https://mymail-backend.vercel.app/
+```
+
+---
+
+# 📦 NPM Technology Highlights
+
+## Frontend
+
+```text
+React
+React DOM
+React Router DOM
+Redux Toolkit
+React Redux
+Axios
+Tailwind CSS
+Framer Motion
+Lucide React
+React Hook Form
+Zod
+React Helmet Async
+React Hot Toast
+Recharts
+Vite
+Oxlint
+```
+
+## Backend
+
+```text
+Express
+MongoDB / Mongoose
+JWT
+bcryptjs
+Nodemailer
+Helmet
+CORS
+Express Rate Limit
+Cookie Parser
+Morgan
+dotenv
+```
+
+---
+
+# 💰 SaaS Pricing Concept
+
+| Plan            |        Price | Designed For         |
+| --------------- | -----------: | -------------------- |
+| 🆓 Free         |     ₹0/month | Beginners & testing  |
+| 🚀 Starter      |   ₹500/month | Small projects       |
+| 💼 Professional | ₹1,400/month | Growing applications |
+
+The pricing interface follows the same modern dark **MyMail orange** visual identity with responsive animated cards.
+
+---
+
+# 🧱 Business Rules
+
+### API Keys
+
+```text
+One Development Key
+        +
+One Production Key
+        =
+Two Keys / Project
+```
+
+### Raw API Key
+
+```text
+Generate
+   ↓
+Show Raw Key
+   ↓
+Hash & Store
+   ↓
+Never Show Raw Key Again
+```
+
+### Project Status
+
+```text
+Active
+  │
+  └── API requests allowed
+
+Inactive
+  │
+  └── API requests blocked
+```
+
+### Password Reset
+
+```text
+Password Changed
+       ↓
+Refresh Token Invalidated
+       ↓
+Old Session Cannot Continue
+```
+
+---
+
+# 🛣️ Future Roadmap
+
+```text
+✅ Authentication
+        ↓
+✅ Projects
+        ↓
+✅ API Keys
+        ↓
+✅ Templates
+        ↓
+✅ Email Engine
+        ↓
+✅ Email Logs
+        ↓
+✅ User Dashboard
+        ↓
+✅ Admin Dashboard
+        ↓
+🔄 Advanced Analytics
+        ↓
+🔄 Multiple SMTP Providers
+        ↓
+🔄 Project-level SMTP
+        ↓
+🔄 Webhooks
+        ↓
+🔄 Delivery Tracking
+        ↓
+🔄 Custom Domains
+        ↓
+🔄 Advanced Email Analytics
+```
+
+---
+
+# 🔮 Future Scope
+
+Potential future improvements include:
+
+* 📡 Multiple SMTP providers
+* ☁️ Cloud email providers
+* 🔔 Webhooks
+* 📬 Delivery tracking
+* 📈 Advanced analytics
+* 🌐 Custom sending domains
+* 🔐 Domain verification
+* 📊 Real-time monitoring
+* 🧾 Detailed billing system
+* 💳 Subscription management
+* 🏢 Organization/team accounts
+* 👥 Team member permissions
+* 📱 Mobile-friendly developer experience
+* 🔌 Developer SDKs
+* 📚 Public API documentation
+
+---
+
+# 💡 Why <span style="color:#f97316">MyMail</span>?
+
+Traditional applications often need to build and maintain their own email delivery logic.
+
+MyMail abstracts that infrastructure behind a developer-friendly API.
+
+```text
+WITHOUT MyMail
+
+Application
+    ↓
+SMTP Configuration
+    ↓
+Email Logic
+    ↓
+Template Logic
+    ↓
+Error Handling
+    ↓
+Logging
+    ↓
+Monitoring
+```
+
+### WITH MyMail
+
+```text
+Application
+    │
+    │ API Request
+    ▼
+╔════════════════════╗
+║     🟠 MyMail      ║
+║                    ║
+║ 🔑 API Security    ║
+║ 📝 Templates       ║
+║ ⚡ Email Engine    ║
+║ 📊 Logs            ║
+║ 📈 Analytics       ║
+╚════════╤═══════════╝
+         │
+         ▼
+       📧 Email
+```
+
+---
+
+# 🏆 Project Highlights
+
+```text
+╔══════════════════════════════════════════╗
+║              🟠 MyMail                   ║
+╠══════════════════════════════════════════╣
+║                                          ║
+║  🔐 Secure Authentication                ║
+║  🔑 Secure API Keys                      ║
+║  📁 Multi-Project Architecture           ║
+║  📝 Dynamic Templates                    ║
+║  📧 SMTP Email Engine                    ║
+║  📊 Email Logs                           ║
+║  📈 Analytics                            ║
+║  👨‍💼 Admin Dashboard                     ║
+║  🎨 Tailwind CSS UI                      ║
+║  🎞️ Framer Motion Animations             ║
+║  🧊 3D-Inspired SaaS Design              ║
+║  📱 Responsive Interface                 ║
+║                                          ║
+╚══════════════════════════════════════════╝
+```
+
+---
+
+# 🤝 Contributing
+
+Contributions, suggestions and improvements are welcome.
+
+```text
+Fork
+  ↓
+Create Branch
+  ↓
+Make Changes
+  ↓
+Test
+  ↓
+Commit
+  ↓
+Push
+  ↓
+Pull Request
+```
+
+---
+
+# 📜 License
+
+This project currently uses the license configuration defined in the repository.
+
+---
+
+# 🙏 Thank You!
+
+Thank you for taking the time to check out this project. Your interest, feedback, and contributions are always appreciated.
+
+If you have any suggestions, find a bug, or want to contribute, feel free to open an issue or submit a pull request.
+
+**Let's make this project better together!**
+
+Stay connected and happy coding! 🚀
+
+---
+
+# 📞 Contact & Community
+
+You can easily connect with **Ucleve Traders** and provide feedback:
+
+* **Call / Phone:** 📞 +91 7480982980
+* **Email:** 📧 [anuj437795@gmail.com](mailto:anuj437795@gmail.com)
+* **Instagram:** 👉 Follow
+* **LinkedIn:** 👉 Connect
+* **WhatsApp Chat:** 💬 Chat / Join Group
+* **WhatsApp Community Group:** 👉 Join Group
+
+---
+
+# 🔗 Connect with Me
+
+<p align="center">
+
+<a href="https://www.linkedin.com/in/gupta-a-549184327">
+<img src="https://img.shields.io/badge/LinkedIn-Connect-blue?style=for-the-badge&logo=linkedin" alt="LinkedIn"/>
+</a>
+
+<a href="https://github.com/Anuj-789">
+<img src="https://img.shields.io/badge/GitHub-Anuj--789-gray?style=for-the-badge&logo=github" alt="GitHub"/>
+</a>
+
+<a href="mailto:anuj437795@gmail.com">
+<img src="https://img.shields.io/badge/Email-Contact-red?style=for-the-badge&logo=gmail" alt="Email"/>
+</a>
+
+</p>
+
+---
+
+<h2 align="center">
+  🌟 Thanks for checking out <span style="color:#f97316">MyMail</span>!
+</h2>
+
+<p align="center">
+  Hope you enjoyed exploring the project 😊
+</p>
+
+<p align="center">
+  <strong>Built with ❤️, JavaScript, React, Node.js, MongoDB & a lot of 🚀</strong>
+</p>
+
+<p align="center">
+  🟠 <strong>MyMail — Build. Integrate. Send.</strong>
+</p>
