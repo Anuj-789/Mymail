@@ -1,1134 +1,848 @@
 const User = require("../../models/auth/User");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
-
 const VerificationToken = require("../../models/auth/VerificationToken");
-const sendEmail = require("../../utils/sendEmail");
-const generateToken = require("../../config/jwt");
-const jwt = require("jsonwebtoken");
 const PasswordResetToken = require("../../models/auth/PasswordResetToken");
+const sendEmail = require("../../utils/sendEmail");
+const jwt = require("jsonwebtoken");
+
 const {
-  generateAccessToken,
-  generateRefreshToken,
+    generateAccessToken,
+    generateRefreshToken,
 } = require("../../config/jwt");
 
-// Register User
+
+// =====================================================
+// REGISTER
+// =====================================================
+
 const register = async (req, res) => {
-  try {
-    const { name, email, phone, password } = req.body;
+    try {
+        const { name, email, phone, password } = req.body;
 
-    // Check existing user
+        if (!name || !email || !phone || !password) {
+            return res.status(400).json({
+                success: false,
+                message: "All fields are required",
+            });
+        }
 
-    const existingUser = await User.findOne({
-      email,
-    });
+        const existingUser = await User.findOne({
+            email: email.toLowerCase(),
+        });
 
-    if (existingUser) {
-      return res.status(400).json({
-        success: false,
-        message: "Email already registered",
-      });
-    }
+        if (existingUser) {
+            return res.status(409).json({
+                success: false,
+                message: "User already exists with this email",
+            });
+        }
 
-    // Hash Password
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+        const user = await User.create({
+            name,
+            email: email.toLowerCase(),
+            phone,
+            password: hashedPassword,
+        });
 
-    // Create User
+        // Generate verification token
+        const token = crypto.randomBytes(32).toString("hex");
 
-    const user = await User.create({
-      name,
-      email,
-      phone,
-      password: hashedPassword,
-    });
+        await VerificationToken.create({
+            userId: user._id,
+            token,
+            expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
+        });
 
-    // Create Verification Token
+        const verificationUrl =
+            `${process.env.FRONTEND_URL}/verify-email/${token}`;
 
-    const token = crypto.randomBytes(32).toString("hex");
-
-    await VerificationToken.create({
-      userId: user._id,
-      token,
-      expiresAt: Date.now() + 24 * 60 * 60 * 1000,
-    });
-
-    // Send Verification Email
-
-    await sendEmail({
-      email: user.email,
-
-      subject: "MyMail — Verify Your Email",
-
-      message: `
+        const emailHtml = `
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Verify Your Email - MyMail</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Your Email</title>
 </head>
 
-<body
-  style="
-    margin:0;
-    padding:0;
-    background:#f4f5f7;
-    font-family:Arial, Helvetica, sans-serif;
-    color:#1a1a1a;
-  "
->
+<body style="margin:0;padding:0;background:#f4f4f5;font-family:Arial,Helvetica,sans-serif;color:#18181b;">
 
-  <table
-    width="100%"
-    cellpadding="0"
-    cellspacing="0"
-    border="0"
-    style="background:#f4f5f7; padding:40px 15px;"
-  >
+    <table width="100%" cellpadding="0" cellspacing="0" border="0"
+        style="background:#f4f4f5;padding:40px 15px;">
 
-    <tr>
-      <td align="center">
+        <tr>
+            <td align="center">
 
-        <!-- Main Container -->
+                <table width="600" cellpadding="0" cellspacing="0" border="0"
+                    style="max-width:600px;width:100%;background:#ffffff;border-radius:14px;overflow:hidden;">
 
-        <table
-          width="100%"
-          cellpadding="0"
-          cellspacing="0"
-          border="0"
-          style="
-            max-width:600px;
-            background:#ffffff;
-            border-radius:18px;
-            overflow:hidden;
-            border:1px solid #e5e7eb;
-          "
-        >
+                    <!-- Header -->
+                    <tr>
+                        <td style="background:#08090B;padding:28px 30px;text-align:center;">
 
-          <!-- Header -->
+                            <img
+                                src="https://mymail-alpha.vercel.app/gungif3.gif"
+                                alt="MyMail"
+                                width="55"
+                                height="55"
+                                style="display:block;margin:0 auto 12px;border-radius:12px;"
+                            />
 
-          <tr>
-            <td
-              align="center"
-              style="
-                background:#08090B;
-                padding:28px 20px;
-              "
-            >
+                            <div style="font-size:24px;font-weight:700;color:#ffffff;">
+                                MyMail
+                            </div>
 
-              <img
-                src="https://mymail-alpha.vercel.app/gungif3.gif"
-                alt="MyMail"
-                width="72"
-                style="
-                  display:block;
-                  margin:0 auto 12px auto;
-                  border:0;
-                  outline:none;
-                "
-              />
+                            <div style="font-size:13px;color:#a1a1aa;margin-top:5px;">
+                                Simple. Powerful. Professional Email.
+                            </div>
 
-              <div
-                style="
-                  color:#ffffff;
-                  font-size:25px;
-                  font-weight:700;
-                  letter-spacing:0.5px;
-                "
-              >
-                MyMail
-              </div>
+                        </td>
+                    </tr>
 
-              <div
-                style="
-                  color:#aeb3ba;
-                  font-size:13px;
-                  margin-top:6px;
-                "
-              >
-                Reliable Email Infrastructure
-              </div>
+                    <!-- Content -->
+                    <tr>
+                        <td style="padding:40px 35px;">
 
-            </td>
-          </tr>
+                            <h1 style="margin:0 0 15px;font-size:26px;color:#18181b;">
+                                Verify Your Email
+                            </h1>
 
+                            <p style="font-size:15px;line-height:1.7;color:#52525b;margin:0 0 15px;">
+                                Hi <strong>${name}</strong>,
+                            </p>
 
-          <!-- Content -->
+                            <p style="font-size:15px;line-height:1.7;color:#52525b;margin:0 0 25px;">
+                                Welcome to MyMail! Please verify your email address
+                                to activate your account and start using MyMail.
+                            </p>
 
-          <tr>
-            <td
-              style="
-                padding:42px 40px;
-              "
-            >
+                            <!-- Button -->
+                            <table cellpadding="0" cellspacing="0" border="0"
+                                style="margin:30px auto;">
 
-              <div
-                style="
-                  font-size:26px;
-                  font-weight:700;
-                  color:#111318;
-                  margin-bottom:18px;
-                "
-              >
-                Welcome to MyMail 👋
-              </div>
+                                <tr>
+                                    <td align="center"
+                                        style="background:#f97316;border-radius:8px;">
 
+                                        <a
+                                            href="${verificationUrl}"
+                                            style="
+                                                display:inline-block;
+                                                padding:14px 28px;
+                                                color:#ffffff;
+                                                text-decoration:none;
+                                                font-size:15px;
+                                                font-weight:600;
+                                            "
+                                        >
+                                            Verify My Email
+                                        </a>
 
-              <div
-                style="
-                  font-size:16px;
-                  line-height:1.7;
-                  color:#4b5563;
-                  margin-bottom:18px;
-                "
-              >
-                Hi ${user.name},
-              </div>
+                                    </td>
+                                </tr>
 
+                            </table>
 
-              <div
-                style="
-                  font-size:15px;
-                  line-height:1.7;
-                  color:#4b5563;
-                  margin-bottom:24px;
-                "
-              >
-                Thanks for creating your MyMail account.
-                We're excited to have you with us.
-              </div>
+                            <p style="font-size:13px;line-height:1.6;color:#71717a;margin:25px 0 10px;">
+                                This verification link will expire in
+                                <strong>24 hours</strong>.
+                            </p>
 
+                            <p style="font-size:13px;line-height:1.6;color:#71717a;margin:0 0 20px;">
+                                If the button above doesn't work, copy and paste
+                                the following URL into your browser:
+                            </p>
 
-              <div
-                style="
-                  font-size:15px;
-                  line-height:1.7;
-                  color:#4b5563;
-                  margin-bottom:30px;
-                "
-              >
-                To complete your registration and activate your
-                account, please verify your email address by clicking
-                the button below.
-              </div>
+                            <div style="
+                                background:#f4f4f5;
+                                padding:12px;
+                                border-radius:7px;
+                                word-break:break-all;
+                                font-size:12px;
+                                color:#52525b;
+                            ">
+                                ${verificationUrl}
+                            </div>
 
+                            <!-- Security Notice -->
+                            <div style="
+                                margin-top:30px;
+                                padding:15px;
+                                background:#fff7ed;
+                                border-left:4px solid #f97316;
+                                border-radius:5px;
+                            ">
+                                <p style="margin:0;font-size:13px;line-height:1.6;color:#7c2d12;">
+                                    <strong>Security Notice:</strong>
+                                    If you did not create a MyMail account,
+                                    you can safely ignore this email.
+                                </p>
+                            </div>
 
-              <!-- Verify Button -->
+                        </td>
+                    </tr>
 
-              <table
-                cellpadding="0"
-                cellspacing="0"
-                border="0"
-                width="100%"
-              >
+                    <!-- Footer -->
+                    <tr>
+                        <td style="
+                            background:#08090B;
+                            padding:25px 30px;
+                            text-align:center;
+                        ">
 
-                <tr>
-                  <td align="center">
+                            <p style="
+                                margin:0;
+                                color:#ffffff;
+                                font-size:14px;
+                                font-weight:600;
+                            ">
+                                MyMail
+                            </p>
 
-                    <a
-                      href="${process.env.FRONTEND_URL}/verify-email/${token}"
-                      style="
-                        display:inline-block;
-                        background:#f97316;
-                        color:#ffffff;
-                        text-decoration:none;
-                        font-size:15px;
-                        font-weight:700;
-                        padding:15px 32px;
-                        border-radius:10px;
-                      "
-                    >
-                      Verify My Email
-                    </a>
+                            <p style="
+                                margin:8px 0 0;
+                                color:#71717a;
+                                font-size:12px;
+                                line-height:1.5;
+                            ">
+                                This is an automated email. Please do not reply.
+                            </p>
 
-                  </td>
-                </tr>
+                            <p style="
+                                margin:12px 0 0;
+                                color:#52525b;
+                                font-size:11px;
+                            ">
+                                © ${new Date().getFullYear()} MyMail. All rights reserved.
+                            </p>
 
-              </table>
+                        </td>
+                    </tr>
 
-
-              <!-- Expiry -->
-
-              <div
-                style="
-                  margin-top:30px;
-                  padding:15px;
-                  background:#f8f9fa;
-                  border-radius:10px;
-                  font-size:13px;
-                  line-height:1.6;
-                  color:#6b7280;
-                  text-align:center;
-                "
-              >
-                This verification link is valid for
-                <strong>24 hours</strong>.
-              </div>
-
-
-              <!-- Alternative Link -->
-
-              <div
-                style="
-                  margin-top:28px;
-                  font-size:12px;
-                  line-height:1.6;
-                  color:#9ca3af;
-                  word-break:break-all;
-                "
-              >
-
-                If the button above doesn't work, copy and paste
-                the following link into your browser:
-
-                <br><br>
-
-                <a
-                  href="${process.env.FRONTEND_URL}/verify-email/${token}"
-                  style="
-                    color:#f97316;
-                    text-decoration:none;
-                  "
-                >
-                  ${process.env.FRONTEND_URL}/verify-email/${token}
-                </a>
-
-              </div>
-
-
-              <!-- Security -->
-
-              <div
-                style="
-                  margin-top:30px;
-                  padding-top:22px;
-                  border-top:1px solid #eeeeee;
-                  font-size:13px;
-                  line-height:1.6;
-                  color:#6b7280;
-                "
-              >
-
-                <strong style="color:#374151;">
-                  Didn't create this account?
-                </strong>
-
-                <br>
-
-                You can safely ignore this email.
-                No action is required.
-
-              </div>
+                </table>
 
             </td>
-          </tr>
+        </tr>
 
-
-          <!-- Footer -->
-
-          <tr>
-            <td
-              align="center"
-              style="
-                background:#08090B;
-                padding:24px 20px;
-              "
-            >
-
-              <div
-                style="
-                  color:#ffffff;
-                  font-size:15px;
-                  font-weight:600;
-                "
-              >
-                MyMail
-              </div>
-
-              <div
-                style="
-                  color:#9ca3af;
-                  font-size:12px;
-                  margin-top:8px;
-                  line-height:1.6;
-                "
-              >
-                Secure • Reliable • Developer-Friendly
-              </div>
-
-              <div
-                style="
-                  color:#6b7280;
-                  font-size:11px;
-                  margin-top:14px;
-                "
-              >
-                © ${new Date().getFullYear()} MyMail. All rights reserved.
-              </div>
-
-            </td>
-          </tr>
-
-
-        </table>
-
-      </td>
-    </tr>
-
-  </table>
+    </table>
 
 </body>
-
 </html>
-      `,
-    });
+`;
 
-    return res.status(201).json({
-      success: true,
-      message: "Registration successful",
-      userId: user._id,
-    });
+        await sendEmail({
+            email: user.email,
+            subject: "MyMail — Verify Your Email",
+            message: emailHtml,
+        });
 
-  } catch (error) {
-    console.log(error);
+        return res.status(201).json({
+            success: true,
+            message:
+                "Registration successful. Please check your email to verify your account.",
+        });
 
-    return res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
+    } catch (error) {
+        console.error("Register Error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Registration failed",
+            error: error.message,
+        });
+    }
 };
-// Verify Email
+
+
+// =====================================================
+// VERIFY EMAIL
+// =====================================================
 
 const verifyEmail = async (req, res) => {
-  try {
-    const { token } = req.params;
+    try {
+        const { token } = req.params;
 
-    // Find Token
+        const verificationToken = await VerificationToken.findOne({
+            token,
+        });
 
-    const verificationToken = await VerificationToken.findOne({
-      token,
-    });
+        if (!verificationToken) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid or expired verification link",
+            });
+        }
 
-    if (!verificationToken) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid or expired verification token",
-      });
+        if (verificationToken.expiresAt < new Date()) {
+            await VerificationToken.deleteOne({
+                _id: verificationToken._id,
+            });
+
+            return res.status(400).json({
+                success: false,
+                message: "Verification link has expired",
+            });
+        }
+
+        const user = await User.findById(verificationToken.userId);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found",
+            });
+        }
+
+        user.isVerified = true;
+        await user.save();
+
+        await VerificationToken.deleteOne({
+            _id: verificationToken._id,
+        });
+
+        return res.status(200).json({
+            success: true,
+            message: "Email verified successfully",
+        });
+
+    } catch (error) {
+        console.error("Verify Email Error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Email verification failed",
+            error: error.message,
+        });
     }
-
-    // Check Expiry
-
-    if (verificationToken.expiresAt < Date.now()) {
-      await VerificationToken.deleteOne({
-        _id: verificationToken._id,
-      });
-
-      return res.status(400).json({
-        success: false,
-        message: "Verification token expired",
-      });
-    }
-
-    // Find User
-
-    const user = await User.findById(verificationToken.userId);
-
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: "User not found",
-      });
-    }
-
-    // Verify User
-
-    user.isVerified = true;
-
-    await user.save();
-
-    // Delete Token
-
-    await VerificationToken.deleteOne({
-      _id: verificationToken._id,
-    });
-
-    return res.status(200).json({
-      success: true,
-
-      message: "Email verified successfully",
-    });
-  } catch (error) {
-    console.log(error);
-
-    return res.status(500).json({
-      success: false,
-
-      message: "Server error",
-    });
-  }
 };
 
-// Login User
-// Login User
+
+// =====================================================
+// LOGIN
+// =====================================================
 
 const login = async (req, res) => {
-  try {
-    const { email, password } = req.body;
+    try {
+        const { email, password } = req.body;
 
-    // Find User
+        if (!email || !password) {
+            return res.status(400).json({
+                success: false,
+                message: "Email and password are required",
+            });
+        }
 
-    const user = await User.findOne({
-      email,
-    });
+        const user = await User.findOne({
+            email: email.toLowerCase(),
+        });
 
-    if (!user) {
-      return res.status(400).json({
-        success: false,
+        if (!user) {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid email or password",
+            });
+        }
 
-        message: "Invalid email or password",
-      });
+        if (user.status === "blocked") {
+            return res.status(403).json({
+                success: false,
+                message: "Your account has been blocked",
+            });
+        }
+
+        if (!user.isVerified) {
+            return res.status(403).json({
+                success: false,
+                message: "Please verify your email before logging in",
+            });
+        }
+
+        const passwordMatch = await bcrypt.compare(
+            password,
+            user.password
+        );
+
+        if (!passwordMatch) {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid email or password",
+            });
+        }
+
+        const accessToken = generateAccessToken(user);
+        const refreshToken = generateRefreshToken(user);
+
+        user.refreshToken = refreshToken;
+        await user.save();
+
+        res.cookie("refreshToken", refreshToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite:
+                process.env.NODE_ENV === "production"
+                    ? "none"
+                    : "strict",
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+        });
+
+        return res.status(200).json({
+            success: true,
+            message: "Login successful",
+            accessToken,
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                profileImage: user.profileImage,
+                role: user.role,
+                isVerified: user.isVerified,
+            },
+        });
+
+    } catch (error) {
+        console.error("Login Error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Login failed",
+            error: error.message,
+        });
     }
-
-    // Check Email Verification
-
-    if (!user.isVerified) {
-      return res.status(403).json({
-        success: false,
-
-        message: "Please verify your email first",
-      });
-    }
-
-    // Compare Password
-
-    const isMatch = await bcrypt.compare(
-      password,
-
-      user.password,
-    );
-
-    if (!isMatch) {
-      return res.status(400).json({
-        success: false,
-
-        message: "Invalid email or password",
-      });
-    }
-
-    // Generate Tokens
-
-    const accessToken = generateAccessToken(user._id);
-
-    const refreshToken = generateRefreshToken(user._id);
-
-    // Save Refresh Token in Database
-
-    user.refreshToken = refreshToken;
-
-    await user.save();
-
-    // Save Refresh Token in Cookie
-
-    res.cookie(
-      "refreshToken",
-
-      refreshToken,
-
-      {
-        httpOnly: true,
-        secure: false,
-        sameSite: "strict",
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-      },
-    );
-
-    return res.status(200).json({
-      success: true,
-
-      message: "Login successful",
-
-      accessToken,
-
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-      },
-    });
-  } catch (error) {
-    console.log(error);
-
-    return res.status(500).json({
-      success: false,
-
-      message: error.message,
-    });
-  }
 };
 
-// Logout User
+
+// =====================================================
+// LOGOUT
+// =====================================================
 
 const logout = async (req, res) => {
-  try {
-    const refreshToken = req.cookies.refreshToken;
+    try {
+        const refreshToken = req.cookies.refreshToken;
 
-    if (refreshToken) {
-      const user = await User.findOne({
-        refreshToken,
-      });
+        if (refreshToken) {
+            const user = await User.findOne({
+                refreshToken,
+            });
 
-      if (user) {
+            if (user) {
+                user.refreshToken = null;
+                await user.save();
+            }
+        }
+
+        res.clearCookie("refreshToken", {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite:
+                process.env.NODE_ENV === "production"
+                    ? "none"
+                    : "strict",
+        });
+
+        return res.status(200).json({
+            success: true,
+            message: "Logged out successfully",
+        });
+
+    } catch (error) {
+        console.error("Logout Error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Logout failed",
+            error: error.message,
+        });
+    }
+};
+
+
+// =====================================================
+// REFRESH ACCESS TOKEN
+// =====================================================
+
+const refreshAccessToken = async (req, res) => {
+    try {
+        const refreshToken = req.cookies.refreshToken;
+
+        if (!refreshToken) {
+            return res.status(401).json({
+                success: false,
+                message: "Refresh token missing",
+            });
+        }
+
+        const user = await User.findOne({
+            refreshToken,
+        });
+
+        if (!user) {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid refresh token",
+            });
+        }
+
+        const decoded = jwt.verify(
+            refreshToken,
+            process.env.JWT_REFRESH_SECRET
+        );
+
+        if (decoded.id !== user._id.toString()) {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid refresh token",
+            });
+        }
+
+        const newAccessToken = generateAccessToken(user);
+
+        return res.status(200).json({
+            success: true,
+            accessToken: newAccessToken,
+        });
+
+    } catch (error) {
+        console.error("Refresh Token Error:", error);
+
+        return res.status(401).json({
+            success: false,
+            message: "Invalid or expired refresh token",
+        });
+    }
+};
+
+
+// =====================================================
+// FORGOT PASSWORD
+// =====================================================
+
+const forgotPassword = async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        if (!email) {
+            return res.status(400).json({
+                success: false,
+                message: "Email is required",
+            });
+        }
+
+        const user = await User.findOne({
+            email: email.toLowerCase(),
+        });
+
+        // Don't reveal whether email exists
+        if (!user) {
+            return res.status(200).json({
+                success: true,
+                message:
+                    "If an account exists with this email, a password reset link has been sent.",
+            });
+        }
+
+        // Delete old reset tokens
+        await PasswordResetToken.deleteMany({
+            userId: user._id,
+        });
+
+        const token = crypto.randomBytes(32).toString("hex");
+
+        await PasswordResetToken.create({
+            userId: user._id,
+            token,
+            expiresAt: new Date(Date.now() + 15 * 60 * 1000),
+        });
+
+        const resetUrl =
+            `${process.env.FRONTEND_URL}/reset-password/${token}`;
+
+        const emailHtml = `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Your Password</title>
+</head>
+
+<body style="margin:0;padding:0;background:#f4f4f5;font-family:Arial,Helvetica,sans-serif;color:#18181b;">
+
+    <table width="100%" cellpadding="0" cellspacing="0" border="0"
+        style="background:#f4f4f5;padding:40px 15px;">
+
+        <tr>
+            <td align="center">
+
+                <table width="600" cellpadding="0" cellspacing="0" border="0"
+                    style="max-width:600px;width:100%;background:#ffffff;border-radius:14px;overflow:hidden;">
+
+                    <!-- Header -->
+                    <tr>
+                        <td style="background:#08090B;padding:28px 30px;text-align:center;">
+
+                            <img
+                                src="https://mymail-alpha.vercel.app/gungif3.gif"
+                                alt="MyMail"
+                                width="55"
+                                height="55"
+                                style="display:block;margin:0 auto 12px;border-radius:12px;"
+                            />
+
+                            <div style="font-size:24px;font-weight:700;color:#ffffff;">
+                                MyMail
+                            </div>
+
+                            <div style="font-size:13px;color:#a1a1aa;margin-top:5px;">
+                                Simple. Powerful. Professional Email.
+                            </div>
+
+                        </td>
+                    </tr>
+
+                    <!-- Content -->
+                    <tr>
+                        <td style="padding:40px 35px;">
+
+                            <h1 style="margin:0 0 15px;font-size:26px;color:#18181b;">
+                                Reset Your Password
+                            </h1>
+
+                            <p style="font-size:15px;line-height:1.7;color:#52525b;margin:0 0 15px;">
+                                Hi <strong>${user.name}</strong>,
+                            </p>
+
+                            <p style="font-size:15px;line-height:1.7;color:#52525b;margin:0 0 25px;">
+                                We received a request to reset your MyMail account
+                                password. Click the button below to create a new password.
+                            </p>
+
+                            <!-- Button -->
+                            <table cellpadding="0" cellspacing="0" border="0"
+                                style="margin:30px auto;">
+
+                                <tr>
+                                    <td align="center"
+                                        style="background:#f97316;border-radius:8px;">
+
+                                        <a
+                                            href="${resetUrl}"
+                                            style="
+                                                display:inline-block;
+                                                padding:14px 28px;
+                                                color:#ffffff;
+                                                text-decoration:none;
+                                                font-size:15px;
+                                                font-weight:600;
+                                            "
+                                        >
+                                            Reset My Password
+                                        </a>
+
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            <p style="font-size:13px;line-height:1.6;color:#71717a;margin:25px 0 10px;">
+                                This password reset link will expire in
+                                <strong>15 minutes</strong>.
+                            </p>
+
+                            <p style="font-size:13px;line-height:1.6;color:#71717a;margin:0 0 20px;">
+                                If the button above doesn't work, copy and paste
+                                the following URL into your browser:
+                            </p>
+
+                            <div style="
+                                background:#f4f4f5;
+                                padding:12px;
+                                border-radius:7px;
+                                word-break:break-all;
+                                font-size:12px;
+                                color:#52525b;
+                            ">
+                                ${resetUrl}
+                            </div>
+
+                            <!-- Security Notice -->
+                            <div style="
+                                margin-top:30px;
+                                padding:15px;
+                                background:#fff7ed;
+                                border-left:4px solid #f97316;
+                                border-radius:5px;
+                            ">
+                                <p style="margin:0;font-size:13px;line-height:1.6;color:#7c2d12;">
+                                    <strong>Security Notice:</strong>
+                                    If you did not request a password reset,
+                                    you can safely ignore this email.
+                                </p>
+                            </div>
+
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td style="
+                            background:#08090B;
+                            padding:25px 30px;
+                            text-align:center;
+                        ">
+
+                            <p style="
+                                margin:0;
+                                color:#ffffff;
+                                font-size:14px;
+                                font-weight:600;
+                            ">
+                                MyMail
+                            </p>
+
+                            <p style="
+                                margin:8px 0 0;
+                                color:#71717a;
+                                font-size:12px;
+                                line-height:1.5;
+                            ">
+                                This is an automated email. Please do not reply.
+                            </p>
+
+                            <p style="
+                                margin:12px 0 0;
+                                color:#52525b;
+                                font-size:11px;
+                            ">
+                                © ${new Date().getFullYear()} MyMail. All rights reserved.
+                            </p>
+
+                        </td>
+                    </tr>
+
+                </table>
+
+            </td>
+        </tr>
+
+    </table>
+
+</body>
+</html>
+`;
+
+        await sendEmail({
+            email: user.email,
+            subject: "MyMail — Reset Your Password",
+            message: emailHtml,
+        });
+
+        return res.status(200).json({
+            success: true,
+            message:
+                "If an account exists with this email, a password reset link has been sent.",
+        });
+
+    } catch (error) {
+        console.error("Forgot Password Error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Unable to process password reset request",
+            error: error.message,
+        });
+    }
+};
+
+
+// =====================================================
+// RESET PASSWORD
+// =====================================================
+
+const resetPassword = async (req, res) => {
+    try {
+        const { token } = req.params;
+        const { password } = req.body;
+
+        if (!password) {
+            return res.status(400).json({
+                success: false,
+                message: "New password is required",
+            });
+        }
+
+        const resetToken = await PasswordResetToken.findOne({
+            token,
+        });
+
+        if (!resetToken) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid or expired password reset link",
+            });
+        }
+
+        if (resetToken.expiresAt < new Date()) {
+            await PasswordResetToken.deleteOne({
+                _id: resetToken._id,
+            });
+
+            return res.status(400).json({
+                success: false,
+                message: "Password reset link has expired",
+            });
+        }
+
+        const user = await User.findById(resetToken.userId);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found",
+            });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        user.password = hashedPassword;
         user.refreshToken = null;
 
         await user.save();
-      }
+
+        await PasswordResetToken.deleteOne({
+            _id: resetToken._id,
+        });
+
+        return res.status(200).json({
+            success: true,
+            message: "Password reset successfully",
+        });
+
+    } catch (error) {
+        console.error("Reset Password Error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Password reset failed",
+            error: error.message,
+        });
     }
-
-    res.clearCookie("refreshToken");
-
-    return res.status(200).json({
-      success: true,
-
-      message: "Logout successful",
-    });
-  } catch (error) {
-    console.log("LOGIN ERROR:", error);
-
-    return res.status(500).json({
-      success: false,
-
-      message: error.message,
-    });
-  }
 };
 
-// Refresh Access Token
 
-const refreshAccessToken = async (req, res) => {
-  try {
-    const refreshToken = req.cookies.refreshToken;
-
-    if (!refreshToken) {
-      return res.status(401).json({
-        success: false,
-
-        message: "Refresh token not found",
-      });
-    }
-
-    // Verify Refresh Token
-
-    const decoded = jwt.verify(
-      refreshToken,
-
-      process.env.JWT_REFRESH_SECRET,
-    );
-
-    // Find User
-
-    const user = await User.findById(decoded.id);
-
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-
-        message: "User not found",
-      });
-    }
-
-    // Check Stored Refresh Token
-
-    if (user.refreshToken !== refreshToken) {
-      return res.status(401).json({
-        success: false,
-
-        message: "Invalid refresh token",
-      });
-    }
-
-    // Generate New Access Token
-
-    const accessToken = generateAccessToken(user._id);
-
-    return res.status(200).json({
-      success: true,
-
-      accessToken,
-    });
-  } catch (error) {
-    console.log(error);
-
-    return res.status(401).json({
-      success: false,
-
-      message: "Refresh token expired",
-    });
-  }
-};
-
-// const forgotPassword = async (req, res) => {
-  try {
-    console.log("FORGOT BODY:", req.body);
-
-    const { email } = req.body;
-
-    console.log("EMAIL RECEIVED:", email);
-
-    const user = await User.findOne({ email });
-
-    console.log("FOUND USER:", user);
-
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: "User not found",
-      });
-    }
-
-    const token = crypto.randomBytes(32).toString("hex");
-
-    await PasswordResetToken.create({
-      userId: user._id,
-      token,
-      expiresAt: Date.now() + 15 * 60 * 1000,
-    });
-
-    const resetUrl =
-      `${process.env.FRONTEND_URL}/reset-password/${token}`;
-
-    await sendEmail({
-      email: user.email,
-
-      subject: "MyMail — Reset Your Password",
-
-      message: `
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reset Your Password - MyMail</title>
-</head>
-
-<body
-  style="
-    margin:0;
-    padding:0;
-    background:#f4f5f7;
-    font-family:Arial, Helvetica, sans-serif;
-    color:#1a1a1a;
-  "
->
-
-  <table
-    width="100%"
-    cellpadding="0"
-    cellspacing="0"
-    border="0"
-    style="
-      background:#f4f5f7;
-      padding:40px 15px;
-    "
-  >
-
-    <tr>
-      <td align="center">
-
-        <table
-          width="100%"
-          cellpadding="0"
-          cellspacing="0"
-          border="0"
-          style="
-            max-width:600px;
-            background:#ffffff;
-            border-radius:18px;
-            overflow:hidden;
-            border:1px solid #e5e7eb;
-          "
-        >
-
-          <!-- HEADER -->
-          <tr>
-            <td
-              align="center"
-              style="
-                background:#08090B;
-                padding:28px 20px;
-              "
-            >
-
-              <img
-                src="https://mymail-alpha.vercel.app/gungif3.gif"
-                alt="MyMail"
-                width="72"
-                style="
-                  display:block;
-                  margin:0 auto 12px auto;
-                  border:0;
-                  outline:none;
-                "
-              />
-
-              <div
-                style="
-                  color:#ffffff;
-                  font-size:25px;
-                  font-weight:700;
-                  letter-spacing:0.5px;
-                "
-              >
-                MyMail
-              </div>
-
-              <div
-                style="
-                  color:#aeb3ba;
-                  font-size:13px;
-                  margin-top:6px;
-                "
-              >
-                Reliable Email Infrastructure
-              </div>
-
-            </td>
-          </tr>
-
-
-          <!-- MAIN CONTENT -->
-          <tr>
-            <td
-              style="
-                padding:42px 40px;
-              "
-            >
-
-              <div
-                style="
-                  font-size:26px;
-                  font-weight:700;
-                  color:#111318;
-                  margin-bottom:18px;
-                "
-              >
-                Reset Your Password 🔐
-              </div>
-
-
-              <div
-                style="
-                  font-size:16px;
-                  line-height:1.7;
-                  color:#4b5563;
-                  margin-bottom:18px;
-                "
-              >
-                Hi ${user.name},
-              </div>
-
-
-              <div
-                style="
-                  font-size:15px;
-                  line-height:1.7;
-                  color:#4b5563;
-                  margin-bottom:24px;
-                "
-              >
-                We received a request to reset the password
-                for your MyMail account.
-              </div>
-
-
-              <div
-                style="
-                  font-size:15px;
-                  line-height:1.7;
-                  color:#4b5563;
-                  margin-bottom:30px;
-                "
-              >
-                If you made this request, click the button below
-                to create a new password for your account.
-              </div>
-
-
-              <!-- RESET BUTTON -->
-              <table
-                cellpadding="0"
-                cellspacing="0"
-                border="0"
-                width="100%"
-              >
-
-                <tr>
-                  <td align="center">
-
-                    <a
-                      href="${resetUrl}"
-                      style="
-                        display:inline-block;
-                        background:#f97316;
-                        color:#ffffff;
-                        text-decoration:none;
-                        font-size:15px;
-                        font-weight:700;
-                        padding:15px 32px;
-                        border-radius:10px;
-                      "
-                    >
-                      Reset My Password
-                    </a>
-
-                  </td>
-                </tr>
-
-              </table>
-
-
-              <!-- EXPIRY NOTICE -->
-              <div
-                style="
-                  margin-top:30px;
-                  padding:15px;
-                  background:#f8f9fa;
-                  border-radius:10px;
-                  font-size:13px;
-                  line-height:1.6;
-                  color:#6b7280;
-                  text-align:center;
-                "
-              >
-                For your security, this password reset link
-                is valid for <strong>15 minutes</strong>.
-              </div>
-
-
-              <!-- FALLBACK URL -->
-              <div
-                style="
-                  margin-top:28px;
-                  font-size:12px;
-                  line-height:1.6;
-                  color:#9ca3af;
-                  word-break:break-all;
-                "
-              >
-
-                If the button above doesn't work, copy and paste
-                the following link into your browser:
-
-                <br><br>
-
-                <a
-                  href="${resetUrl}"
-                  style="
-                    color:#f97316;
-                    text-decoration:none;
-                  "
-                >
-                  ${resetUrl}
-                </a>
-
-              </div>
-
-
-              <!-- SECURITY NOTICE -->
-              <div
-                style="
-                  margin-top:30px;
-                  padding-top:22px;
-                  border-top:1px solid #eeeeee;
-                  font-size:13px;
-                  line-height:1.6;
-                  color:#6b7280;
-                "
-              >
-
-                <strong style="color:#374151;">
-                  Didn't request a password reset?
-                </strong>
-
-                <br>
-
-                You can safely ignore this email.
-                Your password will remain unchanged.
-
-              </div>
-
-            </td>
-          </tr>
-
-
-          <!-- FOOTER -->
-          <tr>
-            <td
-              align="center"
-              style="
-                background:#08090B;
-                padding:24px 20px;
-              "
-            >
-
-              <div
-                style="
-                  color:#ffffff;
-                  font-size:15px;
-                  font-weight:600;
-                "
-              >
-                MyMail
-              </div>
-
-              <div
-                style="
-                  color:#9ca3af;
-                  font-size:12px;
-                  margin-top:8px;
-                  line-height:1.6;
-                "
-              >
-                Secure • Reliable • Developer-Friendly
-              </div>
-
-              <div
-                style="
-                  color:#6b7280;
-                  font-size:11px;
-                  margin-top:14px;
-                "
-              >
-                © ${new Date().getFullYear()} MyMail.
-                All rights reserved.
-              </div>
-
-            </td>
-          </tr>
-
-        </table>
-
-      </td>
-    </tr>
-
-  </table>
-
-</body>
-
-</html>
-      `,
-    });
-
-    return res.json({
-      success: true,
-      message: "Password reset email sent",
-    });
-
-  } catch (error) {
-    console.log(error);
-
-    return res.status(500).json({
-      success: false,
-      message: "Server error",
-    });
-  }
-};
-// Reset Password
-
-const resetPassword = async (req, res) => {
-  try {
-    const { token } = req.params;
-
-    const { password } = req.body;
-
-    // Find Reset Token
-
-    const resetToken = await PasswordResetToken.findOne({
-      token,
-    });
-
-    if (!resetToken) {
-      return res.status(400).json({
-        success: false,
-
-        message: "Invalid or expired token",
-      });
-    }
-
-    // Check Expiry
-
-    if (resetToken.expiresAt < Date.now()) {
-      await PasswordResetToken.deleteOne({
-        _id: resetToken._id,
-      });
-
-      return res.status(400).json({
-        success: false,
-
-        message: "Token expired",
-      });
-    }
-
-    // Find User
-
-    const user = await User.findById(resetToken.userId);
-
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-
-        message: "User not found",
-      });
-    }
-
-    // Hash New Password
-
-    const hashedPassword = await bcrypt.hash(
-      password,
-
-      10,
-    );
-
-    user.password = hashedPassword;
-
-    // Remove refresh token for security
-
-    user.refreshToken = null;
-
-    await user.save();
-
-    // Delete Reset Token
-
-    await PasswordResetToken.deleteOne({
-      _id: resetToken._id,
-    });
-
-    return res.status(200).json({
-      success: true,
-
-      message: "Password reset successful",
-    });
-  } catch (error) {
-    console.log(error);
-
-    return res.status(500).json({
-      success: false,
-
-      message: "Server error",
-    });
-  }
-};
+// =====================================================
+// EXPORTS
+// =====================================================
 
 module.exports = {
-  register,
-  verifyEmail,
-  login,
-  logout,
-  refreshAccessToken,
-  forgotPassword,
-  resetPassword,
+    register,
+    verifyEmail,
+    login,
+    logout,
+    refreshAccessToken,
+    forgotPassword,
+    resetPassword,
 };
